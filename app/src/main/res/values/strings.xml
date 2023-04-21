@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">FindHim</string>
+    <string name="startBtn">Start Game</string>
+    <string name="helpBtn">Help</string>
+    <string name="exitBtn">Exit</string>
+    <string name="help_activity_tittle">Help</string>
+    <string name="backPage">Go Back</string>
+    <string name="help_message">This is a message.</string>
 </resources>
