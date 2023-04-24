@@ -67,13 +67,55 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/thirdInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_below="@+id/secondInputLayout"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/grey_rectangle">
+
+        <EditText
+            android:id="@+id/thirdInputEditText"
+            android:layout_width="320dp"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:autofillHints="1"
+            android:inputType="number"
+            android:hint="@string/rows"
+            android:background="@null"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/fourthInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_below="@+id/thirdInputLayout"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="@drawable/grey_rectangle">
+
+        <EditText
+            android:id="@+id/fourthInputEditText"
+            android:layout_width="320dp"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:autofillHints="1"
+            android:inputType="number"
+            android:hint="@string/columns"
+            android:background="@null"/>
+
+    </RelativeLayout>
+
     <!-- Button -->
     <Button
         android:id="@+id/saveButton"
         android:layout_width="320dp"
         android:layout_height="56dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/secondInputLayout"
+        android:layout_below="@+id/fourthInputLayout"
         android:layout_marginTop="16dp"
         android:layout_marginHorizontal="16dp"
         android:text="@string/startBtn"
