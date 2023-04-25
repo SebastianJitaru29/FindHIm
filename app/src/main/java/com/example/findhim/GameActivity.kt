@@ -14,6 +14,8 @@ class GameActivity : AppCompatActivity() {
     private lateinit var textInput1: TextView
     private var imageIndex: Int = -1
 
+    private lateinit var chronometer: Chronometer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.game_layout)
@@ -80,6 +82,7 @@ class GameActivity : AppCompatActivity() {
             if (position == imageIndex) {
                 Toast.makeText(this, "You win!", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, FinalActivity::class.java)
+                chronometer.stop()
                 startActivity(intent)
             } else {
                 // Do something else if the user clicked on a cell without the letter
@@ -91,6 +94,14 @@ class GameActivity : AppCompatActivity() {
         // Set a random image as the background of the grid
         val randomImage = getRandomImage()
         gridView.background = randomImage
+
+        chronometer = findViewById(R.id.chronometer)
+        chronometer.start()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        chronometer.stop()
     }
 
     private fun getRandomImage(): Drawable {
