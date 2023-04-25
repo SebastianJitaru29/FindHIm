@@ -1,6 +1,7 @@
 package com.example.findhim
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.*
@@ -20,14 +21,30 @@ class FinalActivity : AppCompatActivity() {
         // Set a button click listener to do something with the user input
         val button = findViewById<Button>(R.id.submit_button)
         button.setOnClickListener {
-            val input1 = editText1.text.toString()
-            val input2 = editText2.text.toString()
-            val input3 = editText3.text.toString()
+            val firstName = editText1.text.toString()
+            val secondName = editText2.text.toString()
+            val address =
+                editText3.text.toString() //TODO: Check if is a valid address (xxx@yyy.zzz)
 
             // Do something with the user input
             // For example, you can show a Toast message with the input values
-            val message = "Input 1: $input1, Input 2: $input2, Input 3: $input3"
+            val message = "Input 1: $firstName, Input 2: $secondName, Input 3: $address"
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+
+            //Send email
+            val intent = Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:")
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(address))
+                putExtra(Intent.EXTRA_SUBJECT, "Logs FindHim")
+                putExtra(Intent.EXTRA_TEXT, firstName + secondName)
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK //Ensure the address is filled
+            }
+            //Check if email client installed in the device
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "No email client installed", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }
