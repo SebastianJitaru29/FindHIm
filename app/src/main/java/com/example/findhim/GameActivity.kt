@@ -37,13 +37,13 @@ class GameActivity : AppCompatActivity() {
         val numRows = intent.getIntExtra(ROWS_KEY, 0)
         val numCols = intent.getIntExtra(COLUMNS_KEY, 0)
         // Display the input values in the UI
-        textInput1.text = "Welcome to the Game! $message you have $repetitions tries, rows: $numRows, columns $numCols"
+        textInput1.text = "Welcome to the Game! $message \n You have $repetitions tries, rows: $numRows, columns $numCols"
         // Create a list of cell values
         val numCells = numRows * numCols
         val letterIndex = (0..numCells).random()
         for (i in 0 until numCells) {
             if (i == letterIndex) {
-                cellValues.add("W")
+                cellValues.add(('A'..'Z').random().toString())
             } else {
                 cellValues.add((i + 1).toString())
             }
