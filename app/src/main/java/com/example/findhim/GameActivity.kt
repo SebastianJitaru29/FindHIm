@@ -15,6 +15,7 @@ class GameActivity : AppCompatActivity() {
     private var imageIndex: Int = -1
 
     private lateinit var chronometer: Chronometer
+    private var clicks: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,10 +79,12 @@ class GameActivity : AppCompatActivity() {
 
         // Set onItemClick Listener for each cell to detect when the user clicks on it
         gridView.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+            clicks++
             // If the user clicks on the image, display a message and finish the activity
             if (position == imageIndex) {
                 Toast.makeText(this, "You win!", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, FinalActivity::class.java)
+                setLogs(intent)
                 chronometer.stop()
                 startActivity(intent)
             } else {
@@ -116,6 +119,12 @@ class GameActivity : AppCompatActivity() {
         // Choose a random image from the array
         val randomIndex = Random().nextInt(backgroundImages.size)
         return resources.getDrawable(backgroundImages[randomIndex], null)
+    }
+
+    private fun setLogs(intent: Intent): Intent {
+        intent.putExtra("clicks", clicks.toString())
+        intent.putExtra("time", chronometer.text.toString())
+        return intent
     }
 
     companion object {

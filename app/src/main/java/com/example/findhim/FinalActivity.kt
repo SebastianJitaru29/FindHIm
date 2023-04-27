@@ -7,6 +7,7 @@ import android.view.Gravity
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.example.findhim.R
+import org.w3c.dom.Text
 
 class FinalActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,6 +18,19 @@ class FinalActivity : AppCompatActivity() {
         val editText1 = findViewById<EditText>(R.id.first_name)
         val editText2 = findViewById<EditText>(R.id.last_name)
         val editText3 = findViewById<EditText>(R.id.email)
+
+        //TODO: When repetition enabled, stats per run.
+        val time = intent.getStringExtra("time")
+        val clicks = intent.getStringExtra("clicks")
+        findViewById<TextView>(R.id.attempts).append(clicks)
+        findViewById<TextView>(R.id.totaltime).append(time)
+
+        // Play again button
+        val playAgain = findViewById<Button>(R.id.playagain_button)
+        playAgain.setOnClickListener {
+            //TODO
+            Toast.makeText(this, "Not implemented yet", Toast.LENGTH_SHORT).show()
+        }
 
         // Set a button click listener to do something with the user input
         val button = findViewById<Button>(R.id.submit_button)
