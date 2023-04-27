@@ -5,32 +5,39 @@
     android:background="@color/white">
 
     <!-- Blue title rectangle -->
-    <RelativeLayout
-        android:id="@+id/titleLayout"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:background="@drawable/rounded_rectangle_blue">
+    <!--    <RelativeLayout-->
+    <!--        android:id="@+id/titleLayout"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="72dp"-->
+    <!--        android:background="@drawable/rounded_rectangle_blue">-->
 
-        <TextView
-            android:id="@+id/titleText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"
-            android:text="@string/configuration"
-            android:textColor="@color/black"
-            android:textSize="24sp" />
+    <!--        <TextView-->
+    <!--            android:id="@+id/titleText"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_centerVertical="true"-->
+    <!--            android:layout_marginStart="16dp"-->
+    <!--            android:text="@string/configuration"-->
+    <!--            android:textColor="@color/black"-->
+    <!--            android:textSize="24sp" />-->
 
-    </RelativeLayout>
+    <!--    </RelativeLayout>-->
 
     <!-- First grey input rectangle -->
+    <ImageView
+        android:id="@+id/waldo_walking"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ImageView>
+
     <RelativeLayout
         android:id="@+id/firstInputLayout"
         android:layout_width="match_parent"
         android:layout_height="72dp"
-        android:layout_below="@+id/titleLayout"
-        android:layout_marginTop="16dp"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/waldo_walking"
         android:background="@drawable/rectangle">
 
         <EditText
@@ -38,10 +45,10 @@
             android:layout_width="320dp"
             android:layout_height="match_parent"
             android:autofillHints="player1"
-            android:inputType="text"
-            android:padding="8dp"
+            android:background="@null"
             android:hint="@string/alias"
-            android:background="@null"/>
+            android:inputType="text"
+            android:padding="8dp" />
 
     </RelativeLayout>
 
@@ -51,19 +58,19 @@
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_below="@+id/firstInputLayout"
-        android:layout_marginTop="16dp"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rectangle">
 
         <EditText
             android:id="@+id/secondInputEditText"
             android:layout_width="320dp"
             android:layout_height="match_parent"
-            android:padding="8dp"
             android:autofillHints="1"
-            android:inputType="number"
+            android:background="@null"
             android:hint="@string/number_of_trys"
-            android:background="@null"/>
+            android:inputType="number"
+            android:padding="8dp" />
 
     </RelativeLayout>
 
@@ -72,19 +79,19 @@
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_below="@+id/secondInputLayout"
-        android:layout_marginTop="16dp"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rectangle">
 
         <EditText
             android:id="@+id/thirdInputEditText"
             android:layout_width="320dp"
             android:layout_height="match_parent"
-            android:padding="8dp"
             android:autofillHints="1"
-            android:inputType="number"
+            android:background="@null"
             android:hint="@string/rows"
-            android:background="@null"/>
+            android:inputType="number"
+            android:padding="8dp" />
 
     </RelativeLayout>
 
@@ -93,19 +100,19 @@
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_below="@+id/thirdInputLayout"
-        android:layout_marginTop="16dp"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rectangle">
 
         <EditText
             android:id="@+id/fourthInputEditText"
             android:layout_width="320dp"
             android:layout_height="match_parent"
-            android:padding="8dp"
             android:autofillHints="1"
-            android:inputType="number"
+            android:background="@null"
             android:hint="@string/columns"
-            android:background="@null"/>
+            android:inputType="number"
+            android:padding="8dp" />
 
     </RelativeLayout>
 
@@ -114,13 +121,13 @@
         android:id="@+id/saveButton"
         android:layout_width="320dp"
         android:layout_height="56dp"
-        android:layout_centerHorizontal="true"
         android:layout_below="@+id/fourthInputLayout"
-        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="16dp"
-        android:text="@string/startBtn"
-        android:textSize="18sp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rounded_rectangle_red"
-        android:textColor="@color/white" />
+        android:text="@string/startBtn"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
 </RelativeLayout>
