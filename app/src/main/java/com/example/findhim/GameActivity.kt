@@ -5,13 +5,18 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import java.lang.Integer.min
 import java.util.*
+
 
 class GameActivity : AppCompatActivity() {
     private lateinit var gridView: GridView
     private lateinit var textInput1: TextView
+    private lateinit var gridContainer: FrameLayout
+
     private var imageIndex: Int = -1
 
     private lateinit var chronometer: Chronometer
@@ -20,26 +25,35 @@ class GameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.game_layout)
-
         gridView = findViewById(R.id.gridView)
         textInput1 = findViewById(R.id.text_input1)
+        gridContainer = findViewById(R.id.grid_container)
 
         // Get the input values passed from the MainActivity
         val message = intent.getStringExtra(MESSAGE_KEY)
-        val repetitions = intent.getIntExtra(REPETITIONS_KEY, 0)
-        val numRows = intent.getIntExtra(ROWS_KEY, 0)
-        val numCols = intent.getIntExtra(COLUMNS_KEY, 0)
+
+        // Calculate the cell size based on the screen width and height
+        val displayMetrics = resources.displayMetrics
+        val screenWidth = displayMetrics.widthPixels
+        val screenHeight = displayMetrics.heightPixels
+        val cellSize = min(screenWidth, screenHeight) / 10 // You can adjust this value to suit your needs
+
+        // Calculate the number of rows and columns based on the screen size and the cell size
+        val numCols = 10
+        val numRows = 16
+        val numCells = numRows * numCols
 
         // Display the input values in the UI
         textInput1.text =
-            "Welcome to the Game! $message \n You have $repetitions tries, rows: $numRows, columns $numCols"
+            "Welcome to the Game! $message, gridContainer width: ${gridContainer.width} , gridContainer height: ${gridContainer.height} "
 
         // Create a list of cell values
-        val numCells = numRows * numCols
         val random = Random()
-        imageIndex = random.nextInt(numCells)
+        if (imageIndex == -1) {
+            imageIndex = random.nextInt(numCells)
+        }
         val cellValues =
-            Array(numCells) { if (it == imageIndex) R.drawable.wally1 else com.google.android.material.R.drawable.m3_tabs_transparent_background }
+            Array(numCells) { if (it == imageIndex) R.drawable.wally else R.drawable.transparent_square }
 
         // Create the grid of cells with random values
         val adapter = object : BaseAdapter() {
@@ -59,7 +73,7 @@ class GameActivity : AppCompatActivity() {
                 val imageView: ImageView
                 if (convertView == null) {
                     imageView = ImageView(applicationContext)
-                    imageView.layoutParams = ViewGroup.LayoutParams(100, 100)
+                    imageView.layoutParams = ViewGroup.LayoutParams(cellSize, cellSize)
                     imageView.scaleType = ImageView.ScaleType.CENTER_CROP
                     imageView.setPadding(8, 8, 8, 8)
                 } else {
@@ -70,7 +84,7 @@ class GameActivity : AppCompatActivity() {
                 return imageView
             }
         }
-        // Set the number of rows and columns of the grid based on user input
+        // Set the number of rows and columns of the grid based on the calculated values
         gridView.numColumns = numCols
         gridView.verticalSpacing = 8
         gridView.horizontalSpacing = 8
@@ -84,6 +98,7 @@ class GameActivity : AppCompatActivity() {
             if (position == imageIndex) {
                 Toast.makeText(this, "You win!", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, FinalActivity::class.java)
+
                 setLogs(intent)
                 chronometer.stop()
                 startActivity(intent)
@@ -129,8 +144,5 @@ class GameActivity : AppCompatActivity() {
 
     companion object {
         const val MESSAGE_KEY = "message"
-        const val REPETITIONS_KEY = "repetitions"
-        const val ROWS_KEY = "rows"
-        const val COLUMNS_KEY = "columns"
     }
 }

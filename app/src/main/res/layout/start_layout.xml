@@ -31,6 +31,7 @@
 
     </ImageView>
 
+
     <RelativeLayout
         android:id="@+id/firstInputLayout"
         android:layout_width="match_parent"
@@ -50,78 +51,26 @@
             android:inputType="text"
             android:padding="8dp" />
 
-    </RelativeLayout>
-
-    <!-- Second grey input rectangle -->
-    <RelativeLayout
-        android:id="@+id/secondInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:layout_below="@+id/firstInputLayout"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/rectangle">
-
-        <EditText
-            android:id="@+id/secondInputEditText"
-            android:layout_width="320dp"
-            android:layout_height="match_parent"
-            android:autofillHints="1"
-            android:background="@null"
-            android:hint="@string/number_of_trys"
-            android:inputType="number"
-            android:padding="8dp" />
 
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/thirdInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:layout_below="@+id/secondInputLayout"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/rectangle">
-
-        <EditText
-            android:id="@+id/thirdInputEditText"
-            android:layout_width="320dp"
-            android:layout_height="match_parent"
-            android:autofillHints="1"
-            android:background="@null"
-            android:hint="@string/rows"
-            android:inputType="number"
-            android:padding="8dp" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/fourthInputLayout"
-        android:layout_width="match_parent"
-        android:layout_height="72dp"
-        android:layout_below="@+id/thirdInputLayout"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/rectangle">
-
-        <EditText
-            android:id="@+id/fourthInputEditText"
-            android:layout_width="320dp"
-            android:layout_height="match_parent"
-            android:autofillHints="1"
-            android:background="@null"
-            android:hint="@string/columns"
-            android:inputType="number"
-            android:padding="8dp" />
-
-    </RelativeLayout>
-
-    <!-- Button -->
+    <GridView
+        android:id="@+id/gridview1"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/firstInputLayout"
+        android:layout_centerHorizontal="true"
+        android:numColumns="3"
+        android:columnWidth="200dp"
+        android:horizontalSpacing="5dp"
+        android:verticalSpacing="20dp"
+        android:stretchMode="columnWidth"  />
     <Button
         android:id="@+id/saveButton"
         android:layout_width="320dp"
         android:layout_height="56dp"
-        android:layout_below="@+id/fourthInputLayout"
+        android:layout_below="@+id/gridview1"
         android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"

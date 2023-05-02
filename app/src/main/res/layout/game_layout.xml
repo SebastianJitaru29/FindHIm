@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".GameActivity">
 
-
         <TextView
             android:id="@+id/text_input1"
             android:layout_width="match_parent"
@@ -16,27 +15,32 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-
         <Chronometer
             android:id="@+id/chronometer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/gridView"
-            android:layout_alignEnd="@id/gridView"
+            android:layout_above="@+id/grid_container"
+            android:layout_alignEnd="@id/grid_container"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="3dp"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
-        <GridView
-            android:id="@+id/gridView"
+        <FrameLayout
+            android:id="@+id/grid_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/text_input1"
-            android:columnWidth="150dp"
-            android:horizontalSpacing="8dp"
-            android:numColumns="auto_fit"
-            android:padding="16dp"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="8dp" />
+            android:layout_margin="16dp"
+            android:background="@drawable/rounded_rectangle_red">
+
+                <GridView
+                    android:id="@+id/gridView"
+                    android:layout_margin="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+        </FrameLayout>
 
 
 </RelativeLayout>
