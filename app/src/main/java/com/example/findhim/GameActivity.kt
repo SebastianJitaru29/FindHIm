@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import java.lang.Integer.min
 import java.util.*
 
@@ -16,12 +17,10 @@ class GameActivity : AppCompatActivity() {
     private lateinit var gridView: GridView
     private lateinit var textInput1: TextView
     private lateinit var gridContainer: FrameLayout
-
-    private var imageIndex: Int = -1
-
+    private lateinit var backgroundImage: Drawable
     private lateinit var chronometer: Chronometer
     private var clicks: Int = 0
-
+    private var imageIndex: Int = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.game_layout)
@@ -31,6 +30,7 @@ class GameActivity : AppCompatActivity() {
 
         // Get the input values passed from the MainActivity
         val message = intent.getStringExtra(MESSAGE_KEY)
+        val image = intent.getStringExtra(SELECTED_LEVEL_IMAGE_KEY)
 
         // Calculate the cell size based on the screen width and height
         val displayMetrics = resources.displayMetrics
@@ -110,8 +110,9 @@ class GameActivity : AppCompatActivity() {
         }
 
         // Set a random image as the background of the grid
-        val randomImage = getRandomImage()
-        gridView.background = randomImage
+        val backgroundImageId = intent.getIntExtra(SELECTED_LEVEL_IMAGE_KEY, 0)
+        backgroundImage = ContextCompat.getDrawable(this, backgroundImageId)!!
+        gridView.background = backgroundImage
 
         chronometer = findViewById(R.id.chronometer)
         chronometer.start()
@@ -122,20 +123,6 @@ class GameActivity : AppCompatActivity() {
         chronometer.stop()
     }
 
-    private fun getRandomImage(): Drawable {
-        // Create an array of drawable resources for the background images
-        val backgroundImages = arrayOf(
-            R.drawable.map1,
-            R.drawable.map2,
-            R.drawable.map3,
-            R.drawable.map4,
-            R.drawable.map5
-        )
-        // Choose a random image from the array
-        val randomIndex = Random().nextInt(backgroundImages.size)
-        return resources.getDrawable(backgroundImages[randomIndex], null)
-    }
-
     private fun setLogs(intent: Intent): Intent {
         intent.putExtra("clicks", clicks.toString())
         intent.putExtra("time", chronometer.text.toString())
@@ -144,5 +131,6 @@ class GameActivity : AppCompatActivity() {
 
     companion object {
         const val MESSAGE_KEY = "message"
+        const val SELECTED_LEVEL_IMAGE_KEY = "selectedLevelImage"
     }
 }

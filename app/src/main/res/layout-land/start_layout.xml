@@ -4,12 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
-
-
-
     <!-- First grey input rectangle -->
     <ImageView
         android:id="@+id/waldo_walking"
+        android:layout_below="@id/saveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </ImageView>
@@ -20,7 +18,6 @@
         android:layout_height="72dp"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
-        android:layout_below="@+id/waldo_walking"
         android:background="@drawable/rectangle">
 
         <EditText
@@ -49,9 +46,9 @@
         <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:columnCount="2"
+            android:columnCount="4"
             android:layout_centerHorizontal="true"
-            android:rowCount="2">
+            android:rowCount="1">
 
             <Button
                 android:id="@+id/level1"
@@ -61,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:text="Level 1"
                 android:layout_marginTop="10dp"
-                android:textSize="30sp"
+                android:textSize="30dp"
                 android:layout_marginBottom="10dp"
                 android:layout_column="0">
             </Button>
@@ -73,8 +70,9 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="Level 2"
+                android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
-                android:textSize="30sp"
+                android:textSize="30dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="10dp"
                 android:layout_column="1">
@@ -82,29 +80,29 @@
 
             <Button
                 android:id="@+id/level3"
-                android:layout_row="1"
+                android:layout_row="0"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="Level 3"
                 android:textColor="@color/black"
                 android:layout_marginTop="10dp"
-                android:textSize="30sp"
+                android:textSize="30dp"
                 android:layout_marginBottom="10dp"
-                android:layout_column="0">
+                android:layout_column="2">
             </Button>
 
             <Button
                 android:id="@+id/level4"
-                android:layout_row="1"
+                android:layout_row="0"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:textColor="@color/black"
                 android:text="Level 4"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
-                android:textSize="30sp"
+                android:textSize="30dp"
                 android:layout_marginBottom="10dp"
-                android:layout_column="1">
+                android:layout_column="3">
             </Button>
 
         </GridLayout>
@@ -122,7 +120,7 @@
         android:layout_below="@+id/levels"
         android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="10dp"
         android:text="@string/startBtn"
         android:textColor="@color/white"
         android:textSize="18sp" />
