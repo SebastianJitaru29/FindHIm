@@ -57,7 +57,7 @@
                 android:id="@+id/level1"
                 android:layout_row="0"
                 android:textColor="@color/black"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="Level 1"
                 android:layout_marginTop="10dp"
@@ -126,5 +126,7 @@
         android:text="@string/startBtn"
         android:textColor="@color/white"
         android:textSize="18sp" />
+
+
 
 </RelativeLayout>

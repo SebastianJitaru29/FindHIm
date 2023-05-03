@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -29,8 +30,7 @@ class StartActivity : AppCompatActivity() {
         val level2Btn = findViewById<Button>(R.id.level2)
         val level3Btn = findViewById<Button>(R.id.level3)
         val level4Btn = findViewById<Button>(R.id.level4)
-
-        // Set OnClickListener for level buttons
+       // Set OnClickListener for level buttons
         level1Btn.setOnClickListener {
             selectedLevelImage = R.drawable.map1
             setButtonBackground(level1Btn)
@@ -47,7 +47,6 @@ class StartActivity : AppCompatActivity() {
             selectedLevelImage = R.drawable.map4
             setButtonBackground(level4Btn)
         }
-
         startGameButton.setOnClickListener { startGame() }
     }
 
