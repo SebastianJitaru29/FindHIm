@@ -20,7 +20,7 @@ object MusicPlayer {
     }
 
     fun stop() {
-        mediaPlayer?.stop()
+        mediaPlayer?.pause()
         mediaPlayer?.release()
         mediaPlayer = null
         isPlaying = false

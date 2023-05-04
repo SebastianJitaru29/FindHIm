@@ -32,8 +32,6 @@ class GameActivity : AppCompatActivity() {
         cellSize = resources.getInteger(R.integer.cell_size)
 
         // Get the input values passed from the MainActivity
-        val message = intent.getStringExtra(MESSAGE_KEY)
-        val image = intent.getStringExtra(SELECTED_LEVEL_IMAGE_KEY)
 
         bgImage = findViewById(R.id.map)
         val backgroundImageId = intent.getIntExtra(SELECTED_LEVEL_IMAGE_KEY, 0)

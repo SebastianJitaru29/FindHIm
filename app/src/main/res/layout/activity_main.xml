@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/audioon"
+        android:id="@+id/audiooff"
         android:layout_width="50dp"
         android:layout_height="45dp"
         android:background="@drawable/audio_off"
@@ -24,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/audiooff"
+        android:id="@+id/audioon"
         android:layout_width="50dp"
         android:layout_height="45dp"
         android:background="@drawable/audio_on"

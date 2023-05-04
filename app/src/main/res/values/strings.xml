@@ -11,4 +11,13 @@
     <string name="number_of_trys">Number of trys</string>
     <string name="rows">number of rows</string>
     <string name="columns">Columns</string>
+    <string name="play_again">Play again !</string>
+    <string name="enter_your_first_name">Enter your first name</string>
+    <string name="enter_your_last_name">Enter your last name</string>
+    <string name="enter_your_email_address">Enter your email address</string>
+    <string name="submit">Submit</string>
+    <string name="level_1">Level 1</string>
+    <string name="level_2">Level 2</string>
+    <string name="level_3">Level 3</string>
+    <string name="level_4">Level 4</string>
 </resources>

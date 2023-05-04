@@ -61,7 +61,7 @@
             android:id="@+id/playagain_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Play again !"
+            android:text="@string/play_again"
             android:layout_gravity="center"/>
 
         <LinearLayout
@@ -75,19 +75,19 @@
                 android:id="@+id/first_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter your first name" />
+                android:hint="@string/enter_your_first_name" />
 
             <EditText
                 android:id="@+id/last_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter your last name" />
+                android:hint="@string/enter_your_last_name" />
 
             <EditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter your email address" />
+                android:hint="@string/enter_your_email_address" />
         </LinearLayout>
 
         <Button
@@ -95,7 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Submit" />
+            android:text="@string/submit" />
 
 
     </LinearLayout>

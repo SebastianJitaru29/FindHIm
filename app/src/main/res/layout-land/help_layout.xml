@@ -1,36 +1,41 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/sand">
 
     <TextView
         android:id="@+id/helpTextView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
         android:textSize="50sp"
         android:textAlignment="center"
         android:text="@string/help_activity_tittle"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
     <FrameLayout
         android:id="@+id/messageFrameLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/backButton"
-        android:layout_below="@+id/helpTextView"
-        android:layout_centerHorizontal="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-
-        android:background="@drawable/rounded_rectangle_blue">
+        android:background="@drawable/rounded_rectangle_blue"
+        app:layout_constraintTop_toBottomOf="@id/helpTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/backButton">
 
         <TextView
             android:id="@+id/messageTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
             android:layout_gravity="center"
             android:text="@string/help_message"
@@ -44,8 +49,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/backPage"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:onClick="goBack"/>
+        android:onClick="goBack"
+        app:layout_constraintTop_toBottomOf="@id/messageFrameLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
