@@ -28,8 +28,16 @@ class GameActivity : AppCompatActivity() {
         gridView = findViewById(R.id.gridView)
         textInput1 = findViewById(R.id.text_input1)
         gridContainer = findViewById(R.id.grid_container)
+        chronometer = findViewById(R.id.chronometer)
 
         cellSize = resources.getInteger(R.integer.cell_size)
+
+        if (savedInstanceState != null) {
+            chronometer.base = savedInstanceState.getLong("chrono_time")
+            chronometer.start()
+            imageIndex = savedInstanceState.getInt("wally_pos")
+            clicks = savedInstanceState.getInt("attempts")
+        }
 
         // Get the input values passed from the MainActivity
 
@@ -41,8 +49,6 @@ class GameActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        var finalHeight = 0
-        var finalWidth = 0
         val message = intent.getStringExtra(MESSAGE_KEY)
 
         //We will use a listener to wait for the image to be drawn and calculate the cells
@@ -52,8 +58,8 @@ class GameActivity : AppCompatActivity() {
                 // Remove after the first run so it doesn't fire forever
                 bgImage.viewTreeObserver.removeOnPreDrawListener(this)
 
-                finalHeight = bgImage.height
-                finalWidth = bgImage.width
+                val finalHeight = bgImage.height
+                val finalWidth = bgImage.width
                 val numCols = finalWidth / cellSize
 
                 gridView.columnWidth = cellSize
@@ -63,7 +69,7 @@ class GameActivity : AppCompatActivity() {
 
                 // Display the input values in the UI
                 textInput1.text =
-                    "Welcome to the Game! $message, gridContainer width: ${finalWidth} , gridContainer height: ${finalHeight} "
+                    getString(R.string.game_title, message, clicks, finalWidth, finalHeight)
 
                 // Create a list of cell values
                 val random = Random()
@@ -115,6 +121,8 @@ class GameActivity : AppCompatActivity() {
                 gridView.onItemClickListener =
                     AdapterView.OnItemClickListener { _, _, position, _ ->
                         clicks++
+                        textInput1.text =
+                            getString(R.string.game_title, message, clicks, finalWidth, finalHeight)
                         // If the user clicks on the image, display a message and finish the activity
                         if (position == imageIndex) {
                             Toast.makeText(this@GameActivity, "You win!", Toast.LENGTH_SHORT).show()
@@ -131,7 +139,7 @@ class GameActivity : AppCompatActivity() {
                         }
                     }
 
-                chronometer = findViewById(R.id.chronometer)
+                // It doesn't matter if it has already been started
                 chronometer.start()
 
                 return true
@@ -140,6 +148,13 @@ class GameActivity : AppCompatActivity() {
 
 
         super.onResume()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putLong("chrono_time", chronometer.base)
+        outState.putInt("wally_pos", imageIndex)
+        outState.putInt("attempts", clicks)
     }
 
     override fun onDestroy() {
