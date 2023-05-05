@@ -4,7 +4,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/sand">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/audioLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/audiooff"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:background="@drawable/audio_off"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/audioon"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:background="@drawable/audio_on"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <TextView
         android:id="@+id/helpTextView"
         android:layout_width="0dp"

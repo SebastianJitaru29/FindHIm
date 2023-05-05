@@ -5,11 +5,7 @@ import com.example.findhim.GameActivity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 
@@ -21,6 +17,18 @@ class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.start_layout)
+        val stopButton = findViewById<ImageView>(R.id.audiooff)
+        stopButton.setOnClickListener {
+            MusicPlayer.stop()
+            Toast.makeText(this, "Music Stopped", Toast.LENGTH_SHORT).show()
+
+        }
+        val onButton = findViewById<ImageView>(R.id.audioon)
+        onButton.setOnClickListener{
+            MusicPlayer.start(this,R.raw.background_song)
+            Toast.makeText(this, "Music On", Toast.LENGTH_SHORT).show()
+
+        }
         waldoGif = findViewById(R.id.waldo_walking)
         Glide.with(this).load(R.drawable.walkingwaldo).into(waldoGif)
         PlayerName = findViewById(R.id.firstInputEditText)

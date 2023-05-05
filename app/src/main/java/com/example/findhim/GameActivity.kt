@@ -25,6 +25,7 @@ class GameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.game_layout)
+
         gridView = findViewById(R.id.gridView)
         textInput1 = findViewById(R.id.text_input1)
         gridContainer = findViewById(R.id.grid_container)
