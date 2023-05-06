@@ -17,17 +17,23 @@ class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.start_layout)
-        val stopButton = findViewById<ImageView>(R.id.audiooff)
-        stopButton.setOnClickListener {
-            MusicPlayer.stop()
-            Toast.makeText(this, "Music Stopped", Toast.LENGTH_SHORT).show()
+        var toast: Toast? = null
 
-        }
-        val onButton = findViewById<ImageView>(R.id.audioon)
-        onButton.setOnClickListener{
-            MusicPlayer.start(this,R.raw.background_song)
-            Toast.makeText(this, "Music On", Toast.LENGTH_SHORT).show()
-
+        val musicButton = findViewById<ImageView>(R.id.music)
+        musicButton.setOnClickListener {
+            if (MusicPlayer.isPlaying()) {
+                musicButton.setBackgroundResource(R.drawable.audio_off)
+                MusicPlayer.stop()
+                toast?.cancel()
+                toast = Toast.makeText(this, "Music Stopped", Toast.LENGTH_SHORT)
+                toast?.show()
+            } else {
+                musicButton.setBackgroundResource(R.drawable.audio_on)
+                MusicPlayer.start(this, R.raw.background_song)
+                toast?.cancel()
+                toast = Toast.makeText(this, "Music On", Toast.LENGTH_SHORT)
+                toast?.show()
+            }
         }
         waldoGif = findViewById(R.id.waldo_walking)
         Glide.with(this).load(R.drawable.walkingwaldo).into(waldoGif)

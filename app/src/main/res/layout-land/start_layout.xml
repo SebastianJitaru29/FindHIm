@@ -11,19 +11,11 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/audiooff"
-            android:layout_width="50dp"
-            android:layout_height="45dp"
-            android:background="@drawable/audio_off"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/audioon"
+            android:id="@+id/music"
             android:layout_width="50dp"
             android:layout_height="45dp"
             android:background="@drawable/audio_on"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 

@@ -16,21 +16,16 @@
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-    <ImageView
-        android:id="@+id/audiooff"
-        android:layout_width="50dp"
-        android:layout_height="45dp"
-        android:background="@drawable/audio_off"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/audioon"
+        android:id="@+id/music"
         android:layout_width="50dp"
         android:layout_height="45dp"
         android:background="@drawable/audio_on"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.*
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import java.util.*
@@ -34,23 +35,21 @@ class GameActivity : AppCompatActivity() {
         cellSize = resources.getInteger(R.integer.cell_size)
 
         if (savedInstanceState != null) {
-            chronometer.base = savedInstanceState.getLong("chrono_time")
-            chronometer.start()
             imageIndex = savedInstanceState.getInt("wally_pos")
             clicks = savedInstanceState.getInt("attempts")
+            chronometer.base = savedInstanceState.getLong("chrono_time")
+            chronometer.start()
         }
 
         // Get the input values passed from the MainActivity
-
         bgImage = findViewById(R.id.map)
         val backgroundImageId = intent.getIntExtra(SELECTED_LEVEL_IMAGE_KEY, 0)
         backgroundImage = ContextCompat.getDrawable(this, backgroundImageId)!!
         bgImage.setImageResource(backgroundImageId)
 
-    }
 
-    override fun onResume() {
         val message = intent.getStringExtra(MESSAGE_KEY)
+        onBack()
 
         //We will use a listener to wait for the image to be drawn and calculate the cells
         val vto: ViewTreeObserver = bgImage.viewTreeObserver
@@ -62,19 +61,18 @@ class GameActivity : AppCompatActivity() {
                 val finalHeight = bgImage.height
                 val finalWidth = bgImage.width
                 val numCols = finalWidth / cellSize
-
-                gridView.columnWidth = cellSize
                 val numRows = finalHeight / cellSize
                 val numCells = numRows * numCols
 
+                gridView.columnWidth = cellSize
 
                 // Display the input values in the UI
                 textInput1.text =
                     getString(R.string.game_title, message, clicks, finalWidth, finalHeight)
 
                 // Create a list of cell values
-                val random = Random()
                 if (imageIndex == -1) {
+                    val random = Random()
                     imageIndex = random.nextInt(numCells)
                 }
                 val cellValues =
@@ -117,6 +115,7 @@ class GameActivity : AppCompatActivity() {
                 gridView.numColumns = numCols
                 gridView.stretchMode = GridView.STRETCH_COLUMN_WIDTH
                 gridView.adapter = adapter
+                var toast: Toast? = null
 
                 // Set onItemClick Listener for each cell to detect when the user clicks on it
                 gridView.onItemClickListener =
@@ -126,17 +125,24 @@ class GameActivity : AppCompatActivity() {
                             getString(R.string.game_title, message, clicks, finalWidth, finalHeight)
                         // If the user clicks on the image, display a message and finish the activity
                         if (position == imageIndex) {
-                            Toast.makeText(this@GameActivity, "You win!", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this@GameActivity, FinalActivity::class.java)
-
-                            setLogs(intent)
                             chronometer.stop()
+
+                            toast?.cancel()
+                            toast =
+                                Toast.makeText(this@GameActivity, "You win!", Toast.LENGTH_SHORT)
+                            toast?.show()
+
+                            val intent = Intent(this@GameActivity, FinalActivity::class.java)
+                            setLogs(intent)
                             startActivity(intent)
+                            finish()
                         } else {
                             // Do something else if the user clicked on a cell without the letter
                             // For example, you can show a Toast message
-                            Toast.makeText(this@GameActivity, "Try again!", Toast.LENGTH_SHORT)
-                                .show()
+                            toast?.cancel()
+                            toast =
+                                Toast.makeText(this@GameActivity, "Try again!", Toast.LENGTH_SHORT)
+                            toast?.show()
                         }
                     }
 
@@ -146,9 +152,6 @@ class GameActivity : AppCompatActivity() {
                 return true
             }
         })
-
-
-        super.onResume()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -159,9 +162,19 @@ class GameActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         chronometer.stop()
+        super.onDestroy()
     }
+
+    private fun onBack(){
+        onBackPressedDispatcher.addCallback(this /* lifecycle owner */, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Back is pressed... Finishing the activity
+                finish()
+            }
+        })
+    }
+
 
     private fun setLogs(intent: Intent): Intent {
         intent.putExtra("clicks", clicks.toString())
