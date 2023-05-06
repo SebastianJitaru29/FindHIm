@@ -23,6 +23,8 @@ class GameActivity : AppCompatActivity() {
     private var cellSize: Int = 0
     private var clicks: Int = 0
     private var imageIndex: Int = -1
+    private var numCols: Int = 0
+    private var numRows: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.game_layout)
@@ -37,6 +39,8 @@ class GameActivity : AppCompatActivity() {
         if (savedInstanceState != null) {
             imageIndex = savedInstanceState.getInt("wally_pos")
             clicks = savedInstanceState.getInt("attempts")
+            numCols = savedInstanceState.getInt("cols")
+            numRows = savedInstanceState.getInt("rows")
             chronometer.base = savedInstanceState.getLong("chrono_time")
             chronometer.start()
         }
@@ -57,11 +61,14 @@ class GameActivity : AppCompatActivity() {
             override fun onPreDraw(): Boolean {
                 // Remove after the first run so it doesn't fire forever
                 bgImage.viewTreeObserver.removeOnPreDrawListener(this)
-
                 val finalHeight = bgImage.height
                 val finalWidth = bgImage.width
-                val numCols = finalWidth / cellSize
-                val numRows = finalHeight / cellSize
+                Toast.makeText(this@GameActivity, "$numCols $numRows", Toast.LENGTH_SHORT ).show()
+                if (numCols == 0 && numRows == 0) {
+
+                    numCols = finalWidth / cellSize
+                    numRows = finalHeight / cellSize
+                }
                 val numCells = numRows * numCols
 
                 gridView.columnWidth = cellSize
@@ -76,7 +83,7 @@ class GameActivity : AppCompatActivity() {
                     imageIndex = random.nextInt(numCells)
                 }
                 val cellValues =
-                    Array(numCells) { if (it == imageIndex) R.drawable.wally else R.drawable.transparent_square }
+                    Array(numCells) { if (it == imageIndex) R.drawable.wally else R.drawable.rounded_rectangle_blue }
 
                 // Create the grid of cells with random values
                 val adapter = object : BaseAdapter() {
@@ -113,7 +120,7 @@ class GameActivity : AppCompatActivity() {
                 }
                 // Set the number of rows and columns of the grid based on the calculated values
                 gridView.numColumns = numCols
-                gridView.stretchMode = GridView.STRETCH_COLUMN_WIDTH
+                gridView.stretchMode = GridView.NO_STRETCH
                 gridView.adapter = adapter
                 var toast: Toast? = null
 
@@ -159,6 +166,8 @@ class GameActivity : AppCompatActivity() {
         outState.putLong("chrono_time", chronometer.base)
         outState.putInt("wally_pos", imageIndex)
         outState.putInt("attempts", clicks)
+        outState.putInt("cols", numCols)
+        outState.putInt("rows", numRows)
     }
 
     override fun onDestroy() {
@@ -166,13 +175,15 @@ class GameActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    private fun onBack(){
-        onBackPressedDispatcher.addCallback(this /* lifecycle owner */, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                // Back is pressed... Finishing the activity
-                finish()
-            }
-        })
+    private fun onBack() {
+        onBackPressedDispatcher.addCallback(
+            this /* lifecycle owner */,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    // Back is pressed... Finishing the activity
+                    finish()
+                }
+            })
     }
 
 
