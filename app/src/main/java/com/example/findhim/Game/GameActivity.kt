@@ -136,7 +136,7 @@ class GameActivity : AppCompatActivity() {
                     AdapterView.OnItemClickListener { _, _, position, _ ->
                         clicks++
                         textInput1.text =
-                            getString(R.string.game_title, message, clicks, finalWidth, finalHeight)
+                            getString(R.string.game_title, message, clicks)
                         // If the user clicks on the image, display a message and finish the activity
                         if (position == imageIndex) {
                             chronometer.stop()
