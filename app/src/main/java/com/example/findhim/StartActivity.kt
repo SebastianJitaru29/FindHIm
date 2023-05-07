@@ -42,44 +42,37 @@ class StartActivity : AppCompatActivity() {
                 toast?.show()
             }
         }
+
+        //Set gif
         waldoGif = findViewById(R.id.waldo_walking)
         Glide.with(this).load(R.drawable.walkingwaldo).into(waldoGif)
+
         PlayerName = findViewById(R.id.firstInputEditText)
         cellSize = findViewById(R.id.cellSizeInput)
 
         val startGameButton = findViewById<Button>(R.id.saveButton)
-        val level1Btn = findViewById<Button>(R.id.level1)
-        val level2Btn = findViewById<Button>(R.id.level2)
-        val level3Btn = findViewById<Button>(R.id.level3)
-        val level4Btn = findViewById<Button>(R.id.level4)
-        // Set OnClickListener for level buttons
+        startGameButton.setOnClickListener { startGame() }
 
-        if (selectedLevelImage != -1) {
-            when (selectedLevelImage) {
-                R.drawable.map1 -> setButtonBackground(level1Btn)
-                R.drawable.map2 -> setButtonBackground(level2Btn)
-                R.drawable.map3 -> setButtonBackground(level3Btn)
-                R.drawable.map4 -> setButtonBackground(level4Btn)
+        val levelButtons = listOf(
+            findViewById<Button>(R.id.level1),
+            findViewById<Button>(R.id.level2),
+            findViewById<Button>(R.id.level3),
+            findViewById<Button>(R.id.level4)
+        )
+        val levelImageIds = listOf(
+            R.drawable.map1,
+            R.drawable.map2,
+            R.drawable.map3,
+            R.drawable.map4
+        )
+        // Set OnClickListener for level buttons
+        for ((index, button) in levelButtons.withIndex()) {
+
+            button.setOnClickListener {
+                selectedLevelImage = levelImageIds[index]
+                setButtonBackground(button)
             }
         }
-
-        level1Btn.setOnClickListener {
-            selectedLevelImage = R.drawable.map1
-            setButtonBackground(level1Btn)
-        }
-        level2Btn.setOnClickListener {
-            selectedLevelImage = R.drawable.map2
-            setButtonBackground(level2Btn)
-        }
-        level3Btn.setOnClickListener {
-            selectedLevelImage = R.drawable.map3
-            setButtonBackground(level3Btn)
-        }
-        level4Btn.setOnClickListener {
-            selectedLevelImage = R.drawable.map4
-            setButtonBackground(level4Btn)
-        }
-        startGameButton.setOnClickListener { startGame() }
     }
 
     private fun startGame() {
@@ -110,6 +103,7 @@ class StartActivity : AppCompatActivity() {
         //If last pressed is same, do nothing
         if (lastPressedButtonId == button.id)
             return
+
         //else change colors of last pressed button
         if (lastPressedButtonId != 0) {
             val lastPressedButton = findViewById<Button>(lastPressedButtonId)
