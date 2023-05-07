@@ -37,7 +37,6 @@ class GameActivity : AppCompatActivity() {
         gridContainer = findViewById(R.id.grid_container)
         chronometer = findViewById(R.id.chronometer)
 
-        cellSize = intent.getIntExtra(CELL_SIZE, 0)
 
         if (savedInstanceState != null) {
             imageIndex = savedInstanceState.getInt("wally_pos")
@@ -56,6 +55,7 @@ class GameActivity : AppCompatActivity() {
 
 
         message = intent.getStringExtra(MESSAGE_KEY)
+        cellSize = intent.getIntExtra(CELL_SIZE, 100)
         onBack()
 
         //We will use a listener to wait for the image to be drawn and calculate the cells
@@ -127,7 +127,11 @@ class GameActivity : AppCompatActivity() {
                 gridView.stretchMode = GridView.NO_STRETCH
                 gridView.adapter = adapter
                 var toast: Toast? = null
-                Toast.makeText(this@GameActivity, "${gridView.width} ${gridView.height}", Toast.LENGTH_SHORT ).show()
+                Toast.makeText(
+                    this@GameActivity,
+                    "${gridView.width} ${gridView.height}",
+                    Toast.LENGTH_SHORT
+                ).show()
                 // Set onItemClick Listener for each cell to detect when the user clicks on it
                 gridView.onItemClickListener =
                     AdapterView.OnItemClickListener { _, _, position, _ ->
@@ -194,7 +198,7 @@ class GameActivity : AppCompatActivity() {
     private fun setLogs(intent: Intent): Intent {
         intent.putExtra("clicks", clicks.toString())
         intent.putExtra("time", chronometer.text.toString())
-        intent.putExtra("nickname", message )
+        intent.putExtra("nickname", message)
         return intent
     }
 
