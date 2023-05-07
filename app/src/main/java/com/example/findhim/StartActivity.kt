@@ -83,18 +83,25 @@ class StartActivity : AppCompatActivity() {
     private fun startGame() {
         val message = PlayerName.text.toString()
         val cellSize = cellSize.text.toString()
+        var cellInt = 0
+
         try {
-            cellSize.toInt()
+            cellInt = when (cellSize.toInt()) {
+                in (50..200) -> cellSize.toInt()
+                else -> {
+                    Toast.makeText(this, applicationContext.getText(R.string.error_waldo_size), Toast.LENGTH_SHORT).show()
+                    return
+                }
+            }
         } catch (e: NumberFormatException){
             Toast.makeText(this, applicationContext.getText(R.string.error_waldo_size), Toast.LENGTH_SHORT).show()
             return
         }
 
-
         val intent = Intent(this, GameActivity::class.java)
         intent.putExtra(GameActivity.MESSAGE_KEY, message)
         intent.putExtra(GameActivity.SELECTED_LEVEL_IMAGE_KEY, selectedLevelImage)
-        intent.putExtra(GameActivity.CELL_SIZE, cellSize.toInt())
+        intent.putExtra(GameActivity.CELL_SIZE, cellInt)
         startActivity(intent)
     }
 
