@@ -58,7 +58,12 @@ class GameActivity : AppCompatActivity() {
         cellSize = intent.getIntExtra(CELL_SIZE, 100)
         onBack()
 
-        //We will use a listener to wait for the image to be drawn and calculate the cells
+        createGrid()
+
+    }
+
+    private fun createGrid() {
+        //Listener to wait for the image to be drawn and calculate the cells
         val vto: ViewTreeObserver = bgImage.viewTreeObserver
         vto.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
             override fun onPreDraw(): Boolean {
@@ -67,7 +72,6 @@ class GameActivity : AppCompatActivity() {
                 val finalHeight = bgImage.height
                 val finalWidth = bgImage.width
 
-//                Toast.makeText(this@GameActivity, "$numCols $numRows", Toast.LENGTH_SHORT ).show()
                 if (numCols == 0 && numRows == 0) {
                     numCols = finalWidth / cellSize
                     numRows = finalHeight / cellSize
@@ -85,52 +89,15 @@ class GameActivity : AppCompatActivity() {
                     val random = Random()
                     imageIndex = random.nextInt(numCells)
                 }
-                val cellValues =
-                    Array(numCells) { if (it == imageIndex) R.drawable.wally else R.drawable.rounded_rectangle_blue }
 
-                // Create the grid of cells with random values
-                val adapter = object : BaseAdapter() {
-                    override fun getCount(): Int {
-                        return numCells
-                    }
+                val cellValues = createCells(numCells)
+                val adapter = createAdapter(cellValues)
 
-                    override fun getItem(position: Int): Any? {
-                        return null
-                    }
-
-                    override fun getItemId(position: Int): Long {
-                        return 0
-                    }
-
-                    override fun getView(
-                        position: Int,
-                        convertView: View?,
-                        parent: ViewGroup?
-                    ): View {
-                        val imageView: ImageView
-                        if (convertView == null) {
-                            imageView = ImageView(applicationContext)
-                            imageView.layoutParams = ViewGroup.LayoutParams(cellSize, cellSize)
-                            imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-                            imageView.setPadding(8, 8, 8, 8)
-                        } else {
-                            imageView = convertView as ImageView
-                        }
-
-                        imageView.setImageResource(cellValues[position])
-                        return imageView
-                    }
-                }
                 // Set the number of rows and columns of the grid based on the calculated values
                 gridView.numColumns = numCols
                 gridView.adapter = adapter
                 var toast: Toast? = null
-                //TODO DELeTE
-                Toast.makeText(
-                    this@GameActivity,
-                    "${gridView.width} ${gridView.height}",
-                    Toast.LENGTH_SHORT
-                ).show()
+
                 // Set onItemClick Listener for each cell to detect when the user clicks on it
                 gridView.onItemClickListener =
                     AdapterView.OnItemClickListener { _, _, position, _ ->
@@ -151,8 +118,7 @@ class GameActivity : AppCompatActivity() {
                             startActivity(intent)
                             finish()
                         } else {
-                            // Do something else if the user clicked on a cell without the letter
-                            // For example, you can show a Toast message
+                            // Show toast
                             toast?.cancel()
                             toast =
                                 Toast.makeText(this@GameActivity, "Try again!", Toast.LENGTH_SHORT)
@@ -166,6 +132,44 @@ class GameActivity : AppCompatActivity() {
                 return true
             }
         })
+    }
+    private fun createCells(numCells: Int): Array<Int> {
+        return Array(numCells) { if (it == imageIndex) R.drawable.wally else R.drawable.transparent_square }
+    }
+
+    private fun createAdapter(cellValues: Array<Int>): BaseAdapter {
+        return object : BaseAdapter() {
+            override fun getCount(): Int {
+                return cellValues.size
+            }
+
+            override fun getItem(position: Int): Any? {
+                return null
+            }
+
+            override fun getItemId(position: Int): Long {
+                return 0
+            }
+
+            override fun getView(
+                position: Int,
+                convertView: View?,
+                parent: ViewGroup?
+            ): View {
+                val imageView: ImageView
+                if (convertView == null) {
+                    imageView = ImageView(applicationContext)
+                    imageView.layoutParams = ViewGroup.LayoutParams(cellSize, cellSize)
+                    imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+                    imageView.setPadding(8, 8, 8, 8)
+                } else {
+                    imageView = convertView as ImageView
+                }
+
+                imageView.setImageResource(cellValues[position])
+                return imageView
+            }
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -184,10 +188,10 @@ class GameActivity : AppCompatActivity() {
 
     private fun onBack() {
         onBackPressedDispatcher.addCallback(
-            this /* lifecycle owner */,
+            this,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    // Back is pressed... Finishing the activity
+                    // If back is pressed finish the activity
                     finish()
                 }
             })

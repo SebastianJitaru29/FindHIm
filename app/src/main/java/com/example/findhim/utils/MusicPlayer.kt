@@ -11,6 +11,7 @@ import com.example.findhim.R
 object MusicPlayer {
     private var mediaPlayer: MediaPlayer? = null
     private var isPlaying = false
+    private var shouldResume = false
 
     fun start(context: Context, @RawRes musicId: Int) {
         if (isPlaying) {

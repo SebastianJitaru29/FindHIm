@@ -3,7 +3,6 @@ package com.example.findhim
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.example.findhim.utils.BaseActivity
 import com.example.findhim.utils.MusicPlayer
 
 class HelpActivity: AppCompatActivity() {

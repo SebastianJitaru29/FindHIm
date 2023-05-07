@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.example.findhim.utils.BaseActivity
 
 class FinalActivity : AppCompatActivity() {
     private lateinit var firstNameEditText: EditText

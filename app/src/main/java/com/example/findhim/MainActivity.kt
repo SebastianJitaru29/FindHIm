@@ -3,10 +3,10 @@ package com.example.findhim
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import com.example.findhim.utils.BaseActivity
+import com.example.findhim.utils.StartMusicActivity
 import com.example.findhim.utils.MusicPlayer
 
-class MainActivity : BaseActivity() {
+class MainActivity : StartMusicActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -37,6 +37,5 @@ class MainActivity : BaseActivity() {
         super.onResume()
         MusicPlayer.updateMusicButton(this)
     }
-
 
 }
