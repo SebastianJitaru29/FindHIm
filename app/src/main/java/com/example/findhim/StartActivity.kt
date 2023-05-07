@@ -32,13 +32,13 @@ class StartActivity : AppCompatActivity() {
                 musicButton.setBackgroundResource(R.drawable.audio_off)
                 MusicPlayer.stop()
                 toast?.cancel()
-                toast = Toast.makeText(this, "Music Stopped", Toast.LENGTH_SHORT)
+                toast = Toast.makeText(this, getString(R.string.music_off), Toast.LENGTH_SHORT)
                 toast?.show()
             } else {
                 musicButton.setBackgroundResource(R.drawable.audio_on)
                 MusicPlayer.start(this, R.raw.background_song)
                 toast?.cancel()
-                toast = Toast.makeText(this, "Music On", Toast.LENGTH_SHORT)
+                toast = Toast.makeText(this, getString(R.string.music_on), Toast.LENGTH_SHORT)
                 toast?.show()
             }
         }
@@ -82,7 +82,7 @@ class StartActivity : AppCompatActivity() {
         try {
             val cellInt = cellSize.toInt()
             if (cellInt !in (55..200)) {
-                Toast.makeText(this, this.getText(R.string.error_waldo_size), Toast.LENGTH_SHORT)
+                Toast.makeText(this, getString(R.string.error_waldo_size), Toast.LENGTH_SHORT)
                     .show()
                 return
             }
@@ -93,7 +93,7 @@ class StartActivity : AppCompatActivity() {
             startActivity(intent)
 
         } catch (e: NumberFormatException) {
-            Toast.makeText(this, this.getText(R.string.error_waldo_size), Toast.LENGTH_SHORT)
+            Toast.makeText(this, getString(R.string.error_waldo_size), Toast.LENGTH_SHORT)
                 .show()
             return
         }

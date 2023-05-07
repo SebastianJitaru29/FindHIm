@@ -1,4 +1,7 @@
 <resources>
+    <!--    General-->
+    <string name="music_off">Music Stopped</string>
+    <string name="music_on">Music Playing</string>
     <string name="app_name">FindHim</string>
 
     <string name="helpBtn">Help</string>
