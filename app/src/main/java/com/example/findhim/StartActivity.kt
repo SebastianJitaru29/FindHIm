@@ -83,11 +83,11 @@ class StartActivity : AppCompatActivity() {
     private fun startGame() {
         val message = PlayerName.text.toString()
         val cellSize = cellSize.text.toString()
-        var cellInt = 0
+        val cellInt: Int
 
         try {
             cellInt = when (cellSize.toInt()) {
-                in (50..200) -> cellSize.toInt()
+                in (55..200) -> cellSize.toInt()
                 else -> {
                     Toast.makeText(this, applicationContext.getText(R.string.error_waldo_size), Toast.LENGTH_SHORT).show()
                     return
