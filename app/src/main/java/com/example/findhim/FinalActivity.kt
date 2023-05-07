@@ -18,7 +18,7 @@ class FinalActivity : AppCompatActivity() {
         val editText1 = findViewById<EditText>(R.id.first_name)
         val editText2 = findViewById<EditText>(R.id.last_name)
         val editText3 = findViewById<EditText>(R.id.email)
-
+        val exitBtn = findViewById<Button>(R.id.exit_button)
         val time = intent.getStringExtra("time")
         val clicks = intent.getStringExtra("clicks")
         val nickname = intent.getStringExtra("nickname")
@@ -31,6 +31,8 @@ class FinalActivity : AppCompatActivity() {
             //TODO
             Toast.makeText(this, "Not implemented yet", Toast.LENGTH_SHORT).show()
         }
+
+        exitBtn.setOnClickListener { finishAffinity() }
 
         // Set a button click listener to do something with the user input
         val button = findViewById<Button>(R.id.submit_button)
