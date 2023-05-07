@@ -1,6 +1,6 @@
 package com.example.findhim
 
-import com.example.findhim.Game.GameActivity
+import com.example.findhim.game.GameActivity
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.example.findhim.utils.MusicPlayer
 import java.lang.NumberFormatException
 
 class StartActivity : AppCompatActivity() {
@@ -20,28 +21,11 @@ class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.start_layout)
-        var toast: Toast? = null
 
         if (savedInstanceState != null) {
             selectedLevelImage = savedInstanceState.getInt("level")
         }
-
-        val musicButton = findViewById<ImageView>(R.id.music)
-        musicButton.setOnClickListener {
-            if (MusicPlayer.isPlaying()) {
-                musicButton.setBackgroundResource(R.drawable.audio_off)
-                MusicPlayer.stop()
-                toast?.cancel()
-                toast = Toast.makeText(this, getString(R.string.music_off), Toast.LENGTH_SHORT)
-                toast?.show()
-            } else {
-                musicButton.setBackgroundResource(R.drawable.audio_on)
-                MusicPlayer.start(this, R.raw.background_song)
-                toast?.cancel()
-                toast = Toast.makeText(this, getString(R.string.music_on), Toast.LENGTH_SHORT)
-                toast?.show()
-            }
-        }
+        MusicPlayer.setupMusicButton(this)
 
         //Set gif
         waldoGif = findViewById(R.id.waldo_walking)
@@ -122,5 +106,15 @@ class StartActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt("level", selectedLevelImage)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        MusicPlayer.updateMusicButton(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        MusicPlayer.updateMusicButton(this)
     }
 }

@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.findhim.utils.BaseActivity
 
 class FinalActivity : AppCompatActivity() {
     private lateinit var firstNameEditText: EditText
@@ -44,9 +45,6 @@ class FinalActivity : AppCompatActivity() {
         exitButton.setOnClickListener { finishAffinity() }
     }
 
-    private fun showNotImplementedToast() {
-        Toast.makeText(this, "Not implemented yet", Toast.LENGTH_SHORT).show()
-    }
 
     private fun sendEmail() {
         val firstName = firstNameEditText.text.toString()
