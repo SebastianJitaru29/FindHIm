@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import java.lang.NumberFormatException
 
 class StartActivity : AppCompatActivity() {
     private lateinit var PlayerName: EditText
@@ -82,6 +83,12 @@ class StartActivity : AppCompatActivity() {
     private fun startGame() {
         val message = PlayerName.text.toString()
         val cellSize = cellSize.text.toString()
+        try {
+            cellSize.toInt()
+        } catch (e: NumberFormatException){
+            Toast.makeText(this, applicationContext.getText(R.string.error_waldo_size), Toast.LENGTH_SHORT).show()
+            return
+        }
 
 
         val intent = Intent(this, GameActivity::class.java)

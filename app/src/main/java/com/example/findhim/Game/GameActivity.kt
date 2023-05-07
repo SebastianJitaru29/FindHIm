@@ -69,7 +69,6 @@ class GameActivity : AppCompatActivity() {
 
 //                Toast.makeText(this@GameActivity, "$numCols $numRows", Toast.LENGTH_SHORT ).show()
                 if (numCols == 0 && numRows == 0) {
-
                     numCols = finalWidth / cellSize
                     numRows = finalHeight / cellSize
                 }
