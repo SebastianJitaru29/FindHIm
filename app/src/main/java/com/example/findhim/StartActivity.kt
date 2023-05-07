@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import java.lang.NumberFormatException
 
@@ -14,6 +15,7 @@ class StartActivity : AppCompatActivity() {
     private lateinit var cellSize: EditText
     private lateinit var waldoGif: ImageView
     private var selectedLevelImage = -1
+    private var lastPressedButtonId = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,58 +85,44 @@ class StartActivity : AppCompatActivity() {
     private fun startGame() {
         val message = PlayerName.text.toString()
         val cellSize = cellSize.text.toString()
-        val cellInt: Int
 
         try {
-            cellInt = when (cellSize.toInt()) {
-                in (55..200) -> cellSize.toInt()
-                else -> {
-                    Toast.makeText(this, applicationContext.getText(R.string.error_waldo_size), Toast.LENGTH_SHORT).show()
-                    return
-                }
+            val cellInt = cellSize.toInt()
+            if (cellInt !in (55..200)) {
+                Toast.makeText(this, this.getText(R.string.error_waldo_size), Toast.LENGTH_SHORT)
+                    .show()
+                return
             }
-        } catch (e: NumberFormatException){
-            Toast.makeText(this, applicationContext.getText(R.string.error_waldo_size), Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, GameActivity::class.java)
+            intent.putExtra(GameActivity.MESSAGE_KEY, message)
+            intent.putExtra(GameActivity.SELECTED_LEVEL_IMAGE_KEY, selectedLevelImage)
+            intent.putExtra(GameActivity.CELL_SIZE, cellInt)
+            startActivity(intent)
+
+        } catch (e: NumberFormatException) {
+            Toast.makeText(this, this.getText(R.string.error_waldo_size), Toast.LENGTH_SHORT)
+                .show()
             return
         }
-
-        val intent = Intent(this, GameActivity::class.java)
-        intent.putExtra(GameActivity.MESSAGE_KEY, message)
-        intent.putExtra(GameActivity.SELECTED_LEVEL_IMAGE_KEY, selectedLevelImage)
-        intent.putExtra(GameActivity.CELL_SIZE, cellInt)
-        startActivity(intent)
     }
 
     private fun setButtonBackground(button: Button) {
-        // Set clicked button's background to "clicked_btn" drawable
-        button.setBackgroundResource(R.drawable.when_clicked)
-
-        // Reset the other buttons' backgrounds to the original drawable
-        when (button.id) {
-            R.id.level1 -> {
-                findViewById<Button>(R.id.level2).setBackgroundResource(R.drawable.grey_rectangle)
-                findViewById<Button>(R.id.level3).setBackgroundResource(R.drawable.grey_rectangle)
-                findViewById<Button>(R.id.level4).setBackgroundResource(R.drawable.grey_rectangle)
-            }
-
-            R.id.level2 -> {
-                findViewById<Button>(R.id.level1).setBackgroundResource(R.drawable.grey_rectangle)
-                findViewById<Button>(R.id.level3).setBackgroundResource(R.drawable.grey_rectangle)
-                findViewById<Button>(R.id.level4).setBackgroundResource(R.drawable.grey_rectangle)
-            }
-
-            R.id.level3 -> {
-                findViewById<Button>(R.id.level1).setBackgroundResource(R.drawable.grey_rectangle)
-                findViewById<Button>(R.id.level2).setBackgroundResource(R.drawable.grey_rectangle)
-                findViewById<Button>(R.id.level4).setBackgroundResource(R.drawable.grey_rectangle)
-            }
-
-            R.id.level4 -> {
-                findViewById<Button>(R.id.level1).setBackgroundResource(R.drawable.grey_rectangle)
-                findViewById<Button>(R.id.level2).setBackgroundResource(R.drawable.grey_rectangle)
-                findViewById<Button>(R.id.level3).setBackgroundResource(R.drawable.grey_rectangle)
-            }
+        //If last pressed is same, do nothing
+        if (lastPressedButtonId == button.id)
+            return
+        //else change colors of last pressed button
+        if (lastPressedButtonId != 0) {
+            val lastPressedButton = findViewById<Button>(lastPressedButtonId)
+            lastPressedButton.setBackgroundResource(R.drawable.not_clicked)
+            lastPressedButton.setTextColor(ContextCompat.getColor(this, R.color.light_red))
         }
+
+        //Change currently pressed
+        button.setBackgroundResource(R.drawable.when_clicked)
+        button.setTextColor(ContextCompat.getColor(this, R.color.white))
+
+        //save
+        lastPressedButtonId = button.id
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

@@ -125,6 +125,7 @@ class GameActivity : AppCompatActivity() {
                 gridView.numColumns = numCols
                 gridView.adapter = adapter
                 var toast: Toast? = null
+                //TODO DELeTE
                 Toast.makeText(
                     this@GameActivity,
                     "${gridView.width} ${gridView.height}",
