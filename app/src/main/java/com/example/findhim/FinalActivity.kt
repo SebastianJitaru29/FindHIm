@@ -19,9 +19,9 @@ class FinalActivity : AppCompatActivity() {
         val editText2 = findViewById<EditText>(R.id.last_name)
         val editText3 = findViewById<EditText>(R.id.email)
 
-        //TODO: When repetition enabled, stats per run.
         val time = intent.getStringExtra("time")
         val clicks = intent.getStringExtra("clicks")
+        val nickname = intent.getStringExtra("nickname")
         findViewById<TextView>(R.id.attempts).append(clicks)
         findViewById<TextView>(R.id.totaltime).append(time)
 
@@ -50,7 +50,10 @@ class FinalActivity : AppCompatActivity() {
                 data = Uri.parse("mailto:")
                 putExtra(Intent.EXTRA_EMAIL, arrayOf(address))
                 putExtra(Intent.EXTRA_SUBJECT, "Logs FindHim")
-                putExtra(Intent.EXTRA_TEXT, firstName + secondName)
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    "Name: $firstName \n SecondName: $secondName \n Nickname: $nickname \n Clicks: $clicks \n Time: $time"
+                )
                 flags = Intent.FLAG_ACTIVITY_NEW_TASK //Ensure the address is filled
             }
             //Check if email client installed in the device

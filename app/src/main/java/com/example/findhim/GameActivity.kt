@@ -25,6 +25,7 @@ class GameActivity : AppCompatActivity() {
     private var imageIndex: Int = -1
     private var numCols: Int = 0
     private var numRows: Int = 0
+    private var message: String? = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.game_layout)
@@ -52,7 +53,7 @@ class GameActivity : AppCompatActivity() {
         bgImage.setImageResource(backgroundImageId)
 
 
-        val message = intent.getStringExtra(MESSAGE_KEY)
+        message = intent.getStringExtra(MESSAGE_KEY)
         onBack()
 
         //We will use a listener to wait for the image to be drawn and calculate the cells
@@ -63,7 +64,8 @@ class GameActivity : AppCompatActivity() {
                 bgImage.viewTreeObserver.removeOnPreDrawListener(this)
                 val finalHeight = bgImage.height
                 val finalWidth = bgImage.width
-                Toast.makeText(this@GameActivity, "$numCols $numRows", Toast.LENGTH_SHORT ).show()
+
+//                Toast.makeText(this@GameActivity, "$numCols $numRows", Toast.LENGTH_SHORT ).show()
                 if (numCols == 0 && numRows == 0) {
 
                     numCols = finalWidth / cellSize
@@ -123,7 +125,7 @@ class GameActivity : AppCompatActivity() {
                 gridView.stretchMode = GridView.NO_STRETCH
                 gridView.adapter = adapter
                 var toast: Toast? = null
-
+                Toast.makeText(this@GameActivity, "${gridView.width} ${gridView.height}", Toast.LENGTH_SHORT ).show()
                 // Set onItemClick Listener for each cell to detect when the user clicks on it
                 gridView.onItemClickListener =
                     AdapterView.OnItemClickListener { _, _, position, _ ->
@@ -190,6 +192,7 @@ class GameActivity : AppCompatActivity() {
     private fun setLogs(intent: Intent): Intent {
         intent.putExtra("clicks", clicks.toString())
         intent.putExtra("time", chronometer.text.toString())
+        intent.putExtra("nickname", message )
         return intent
     }
 

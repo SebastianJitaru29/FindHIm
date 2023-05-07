@@ -5,6 +5,7 @@ import com.example.findhim.GameActivity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -12,12 +13,16 @@ import com.bumptech.glide.Glide
 class StartActivity : AppCompatActivity() {
     private lateinit var PlayerName: EditText
     private lateinit var waldoGif: ImageView
-    private var selectedLevelImage = 0
+    private var selectedLevelImage = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.start_layout)
         var toast: Toast? = null
+
+        if (savedInstanceState != null) {
+            selectedLevelImage = savedInstanceState.getInt("level")
+        }
 
         val musicButton = findViewById<ImageView>(R.id.music)
         musicButton.setOnClickListener {
@@ -44,7 +49,17 @@ class StartActivity : AppCompatActivity() {
         val level2Btn = findViewById<Button>(R.id.level2)
         val level3Btn = findViewById<Button>(R.id.level3)
         val level4Btn = findViewById<Button>(R.id.level4)
-       // Set OnClickListener for level buttons
+        // Set OnClickListener for level buttons
+
+        if (selectedLevelImage != -1) {
+            when (selectedLevelImage) {
+                R.drawable.map1 -> setButtonBackground(level1Btn)
+                R.drawable.map2 -> setButtonBackground(level2Btn)
+                R.drawable.map3 -> setButtonBackground(level3Btn)
+                R.drawable.map4 -> setButtonBackground(level4Btn)
+            }
+        }
+
         level1Btn.setOnClickListener {
             selectedLevelImage = R.drawable.map1
             setButtonBackground(level1Btn)
@@ -84,21 +99,29 @@ class StartActivity : AppCompatActivity() {
                 findViewById<Button>(R.id.level3).setBackgroundResource(R.drawable.grey_rectangle)
                 findViewById<Button>(R.id.level4).setBackgroundResource(R.drawable.grey_rectangle)
             }
+
             R.id.level2 -> {
                 findViewById<Button>(R.id.level1).setBackgroundResource(R.drawable.grey_rectangle)
                 findViewById<Button>(R.id.level3).setBackgroundResource(R.drawable.grey_rectangle)
                 findViewById<Button>(R.id.level4).setBackgroundResource(R.drawable.grey_rectangle)
             }
+
             R.id.level3 -> {
                 findViewById<Button>(R.id.level1).setBackgroundResource(R.drawable.grey_rectangle)
                 findViewById<Button>(R.id.level2).setBackgroundResource(R.drawable.grey_rectangle)
                 findViewById<Button>(R.id.level4).setBackgroundResource(R.drawable.grey_rectangle)
             }
+
             R.id.level4 -> {
                 findViewById<Button>(R.id.level1).setBackgroundResource(R.drawable.grey_rectangle)
                 findViewById<Button>(R.id.level2).setBackgroundResource(R.drawable.grey_rectangle)
                 findViewById<Button>(R.id.level3).setBackgroundResource(R.drawable.grey_rectangle)
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("level", selectedLevelImage)
     }
 }
