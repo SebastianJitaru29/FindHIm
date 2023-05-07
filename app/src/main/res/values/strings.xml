@@ -4,13 +4,17 @@
     <string name="music_on">Music Playing</string>
     <string name="app_name">FindHim</string>
 
+    <!--    Main Activity-->
     <string name="helpBtn">Help</string>
     <string name="exitBtn">Exit</string>
+    <string name="configuration">Configuration</string>
+
+    <!--    Help Activity-->
     <string name="help_activity_tittle">Help</string>
     <string name="backPage">Go Back</string>
     <string name="help_message">Welcome to the Find Waldo game! Your goal is to locate Waldo in a busy scene. Look for his red and white striped shirt, hat, and glasses. Click on Waldo when you find him to move on to the next level. Good luck!.</string>
-    <string name="configuration">Configuration</string>
-    <!--    Start Activiy-->
+
+    <!--    Start Activity-->
     <string name="alias">Player Name</string>
     <string name="selectlvlTitle">Choose a level: </string>
     <string name="cell_size">Waldo size (55 – 200)</string>
@@ -21,18 +25,20 @@
     <string name="level_4">Level 4</string>
     <string name="startBtn">Start Game</string>
 
-    <string name="number_of_trys">Number of trys</string>
-    <string name="rows">number of rows</string>
-    <string name="columns">Columns</string>
+    <!--    Game Activity-->
+    <string name="game_title">Welcome to the Game! %s, Attempts: %d</string>
+
+    <!--    Final Layout-->
+    <string name="tittle_final">Congratulations! You found Wally</string>
+    <string name="your_results">Your results</string>
+    <string name="number_of_attempts">Number of attempts: </string>
+    <string name="total_time">Total time: </string>
     <string name="play_again">Play again !</string>
     <string name="enter_your_first_name">Enter your first name</string>
     <string name="enter_your_last_name">Enter your last name</string>
     <string name="enter_your_email_address">Enter your email address</string>
     <string name="submit">Submit</string>
 
-    <string name="game_title">Welcome to the Game! %s, Attempts: %d</string>
-    <string name="your_results">Your results</string>
-    <string name="number_of_attempts">Number of attempts:</string>
-    <string name="total_time">Total time:</string>
+
 
 </resources>
