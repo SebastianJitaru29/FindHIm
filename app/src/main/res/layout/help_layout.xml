@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/sand">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,16 +19,17 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
         android:id="@+id/helpTextView"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/audioLayout"
-        android:layout_width="match_parent"
-        android:textSize="50sp"
-        android:textAlignment="center"
-        android:text="@string/help_activity_tittle"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="@string/help_activity_tittle"
+        android:textAlignment="center"
+        android:textSize="50sp" />
 
     <FrameLayout
         android:id="@+id/messageFrameLayout"
@@ -41,18 +42,21 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:background="@drawable/rounded_rectangle_blue">
+        android:background="@drawable/rounded_rectangle_red">
 
         <TextView
             android:id="@+id/messageTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_gravity="center"
+            android:padding="10dp"
             android:text="@string/help_message"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
     </FrameLayout>
 
@@ -60,9 +64,9 @@
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/backPage"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:onClick="goBack"/>
+        android:onClick="goBack"
+        android:text="@string/backPage" />
 
 </RelativeLayout>

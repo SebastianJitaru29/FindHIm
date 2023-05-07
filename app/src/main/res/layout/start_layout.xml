@@ -21,8 +21,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <!-- First grey input rectangle -->
     <ImageView
         android:id="@+id/waldo_walking"
         android:layout_width="match_parent"
@@ -47,7 +45,8 @@
             android:background="@drawable/rectangle"
             android:hint="@string/alias"
             android:inputType="text"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/cellSizeInput"
@@ -57,11 +56,12 @@
             android:background="@drawable/rectangle"
             android:hint="@string/cell_size"
             android:inputType="number"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:textSize="20sp" />
 
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/levels"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,13 +69,22 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
-        android:background="@drawable/rounded_rectangle_blue"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="vertical">
+        <!--        android:background="@drawable/rounded_rectangle_blue"-->
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/selectlvlTitle"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
 
         <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:columnCount="2"
             android:rowCount="2">
 
@@ -87,9 +96,11 @@
                 android:layout_column="0"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:background="@drawable/not_clicked"
                 android:text="@string/level_1"
-                android:textColor="@color/black"
-                android:textSize="30sp"></Button>
+                android:textColor="@color/light_red"
+                android:textSize="20sp"
+                app:backgroundTint="@null" />
 
             <Button
                 android:id="@+id/level2"
@@ -100,9 +111,11 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:background="@drawable/not_clicked"
                 android:text="@string/level_2"
-                android:textColor="@color/black"
-                android:textSize="30sp"></Button>
+                android:textColor="@color/light_red"
+                android:textSize="20sp"
+                app:backgroundTint="@null" />
 
             <Button
                 android:id="@+id/level3"
@@ -112,9 +125,11 @@
                 android:layout_column="0"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:background="@drawable/not_clicked"
                 android:text="@string/level_3"
-                android:textColor="@color/black"
-                android:textSize="30sp"></Button>
+                android:textColor="@color/light_red"
+                android:textSize="20sp"
+                app:backgroundTint="@null" />
 
             <Button
                 android:id="@+id/level4"
@@ -125,13 +140,15 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
+                android:background="@drawable/not_clicked"
                 android:text="@string/level_4"
-                android:textColor="@color/black"
-                android:textSize="30sp"></Button>
+                android:textColor="@color/light_red"
+                android:textSize="20sp"
+                app:backgroundTint="@null" />
 
         </GridLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
     <Button

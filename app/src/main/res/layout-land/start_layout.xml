@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white">
     <!-- First grey input rectangle -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,18 +21,12 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/waldo_walking"
-        android:layout_below="@id/saveButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </ImageView>
 
     <LinearLayout
         android:id="@+id/firstInputLayout"
         android:layout_width="match_parent"
-        android:layout_below="@id/audioLayout"
         android:layout_height="wrap_content"
+        android:layout_below="@id/audioLayout"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
         android:orientation="vertical">
@@ -41,12 +35,13 @@
             android:id="@+id/firstInputEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
             android:autofillHints="player1"
             android:background="@drawable/rectangle"
             android:hint="@string/alias"
             android:inputType="text"
-            android:layout_marginBottom="10dp"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:textSize="20sp"/>
 
         <EditText
             android:id="@+id/cellSizeInput"
@@ -56,101 +51,109 @@
             android:background="@drawable/rectangle"
             android:hint="@string/cell_size"
             android:inputType="number"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:textSize="20sp"/>
 
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/levels"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/firstInputLayout"
-        android:orientation="horizontal"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/rounded_rectangle_blue"
         android:layout_marginLeft="20dp"
-        >
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/selectlvlTitle"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
         <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:columnCount="4"
-            android:layout_centerHorizontal="true"
             android:rowCount="1">
 
             <Button
                 android:id="@+id/level1"
-                android:layout_row="0"
-                android:textColor="@color/black"
-                android:layout_height="match_parent"
                 android:layout_width="wrap_content"
-                android:text="Level 1"
-                android:layout_marginTop="10dp"
-                android:textSize="30dp"
-                android:layout_marginBottom="10dp"
-                android:layout_column="0">
-            </Button>
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="0"
+                android:layout_margin="5dp"
+                android:background="@drawable/not_clicked"
+                android:text="@string/level_1"
+                android:textColor="@color/light_red"
+                android:textSize="20sp"
+                app:backgroundTint="@null" />
 
             <Button
                 android:id="@+id/level2"
-                android:layout_row="0"
-                android:textColor="@color/black"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="Level 2"
-                android:layout_marginEnd="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="30dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_column="1">
-            </Button>
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="1"
+                android:layout_margin="5dp"
+                android:background="@drawable/not_clicked"
+                android:text="@string/level_2"
+                android:textColor="@color/light_red"
+                android:textSize="20sp"
+                app:backgroundTint="@null" />
 
             <Button
                 android:id="@+id/level3"
-                android:layout_row="0"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="Level 3"
-                android:textColor="@color/black"
-                android:layout_marginTop="10dp"
-                android:textSize="30dp"
-                android:layout_marginBottom="10dp"
-                android:layout_column="2">
-            </Button>
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="2"
+                android:layout_margin="5dp"
+                android:background="@drawable/not_clicked"
+                android:text="@string/level_3"
+                android:textColor="@color/light_red"
+                android:textSize="20sp"
+                app:backgroundTint="@null" />
 
             <Button
                 android:id="@+id/level4"
-                android:layout_row="0"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:textColor="@color/black"
-                android:text="Level 4"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
-                android:textSize="30dp"
-                android:layout_marginBottom="10dp"
-                android:layout_column="3">
-            </Button>
+                android:layout_height="wrap_content"
+                android:layout_row="0"
+                android:layout_column="3"
+                android:layout_margin="5dp"
+                android:background="@drawable/not_clicked"
+                android:text="@string/level_4"
+                android:textColor="@color/light_red"
+                android:textSize="20sp"
+                app:backgroundTint="@null" />
+
 
         </GridLayout>
 
-    </RelativeLayout>
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="320dp"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/startBtn"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
+        <ImageView
+            android:id="@+id/waldo_walking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="TODO" />
 
+    </LinearLayout>
 
-
-    <Button
-        android:id="@+id/saveButton"
-        android:layout_width="320dp"
-        android:layout_height="56dp"
-
-        android:layout_below="@+id/levels"
-        android:layout_centerHorizontal="true"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/startBtn"
-        android:textColor="@color/white"
-        android:textSize="18sp" />
 
 </RelativeLayout>

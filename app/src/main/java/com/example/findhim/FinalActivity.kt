@@ -44,9 +44,6 @@ class FinalActivity : AppCompatActivity() {
         exitButton.setOnClickListener { finishAffinity() }
     }
 
-    private fun showNotImplementedToast() {
-        Toast.makeText(this, "Not implemented yet", Toast.LENGTH_SHORT).show()
-    }
 
     private fun sendEmail() {
         val firstName = firstNameEditText.text.toString()
