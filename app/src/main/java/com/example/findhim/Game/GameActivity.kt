@@ -1,4 +1,4 @@
-package com.example.findhim
+package com.example.findhim.Game
 
 import android.content.Intent
 import android.graphics.drawable.Drawable
@@ -10,6 +10,8 @@ import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.example.findhim.FinalActivity
+import com.example.findhim.R
 import java.util.*
 
 

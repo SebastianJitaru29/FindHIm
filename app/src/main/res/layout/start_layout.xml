@@ -31,25 +31,23 @@
 
     <LinearLayout
         android:id="@+id/firstInputLayout"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/waldo_walking"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="16dp"
-
-        >
+        android:orientation="vertical">
 
         <EditText
             android:id="@+id/firstInputEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
             android:autofillHints="player1"
             android:background="@drawable/rectangle"
             android:hint="@string/alias"
             android:inputType="text"
-            android:padding="8dp"
-            android:layout_marginBottom="10dp"/>
+            android:padding="8dp" />
 
         <EditText
             android:id="@+id/cellSizeInput"

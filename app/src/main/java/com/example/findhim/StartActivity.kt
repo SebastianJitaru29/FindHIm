@@ -1,11 +1,9 @@
 package com.example.findhim
 
-import com.example.findhim.GameActivity
+import com.example.findhim.Game.GameActivity
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
