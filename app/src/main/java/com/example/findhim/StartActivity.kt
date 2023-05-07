@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 
 class StartActivity : AppCompatActivity() {
     private lateinit var PlayerName: EditText
+    private lateinit var cellSize: EditText
     private lateinit var waldoGif: ImageView
     private var selectedLevelImage = -1
 
@@ -43,6 +44,7 @@ class StartActivity : AppCompatActivity() {
         waldoGif = findViewById(R.id.waldo_walking)
         Glide.with(this).load(R.drawable.walkingwaldo).into(waldoGif)
         PlayerName = findViewById(R.id.firstInputEditText)
+        cellSize = findViewById(R.id.cellSizeInput)
 
         val startGameButton = findViewById<Button>(R.id.saveButton)
         val level1Btn = findViewById<Button>(R.id.level1)
@@ -81,10 +83,13 @@ class StartActivity : AppCompatActivity() {
 
     private fun startGame() {
         val message = PlayerName.text.toString()
+        val cellSize = cellSize.text.toString()
+
 
         val intent = Intent(this, GameActivity::class.java)
         intent.putExtra(GameActivity.MESSAGE_KEY, message)
         intent.putExtra(GameActivity.SELECTED_LEVEL_IMAGE_KEY, selectedLevelImage)
+        intent.putExtra(GameActivity.CELL_SIZE, cellSize.toInt())
         startActivity(intent)
     }
 

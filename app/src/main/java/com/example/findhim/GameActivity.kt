@@ -35,7 +35,7 @@ class GameActivity : AppCompatActivity() {
         gridContainer = findViewById(R.id.grid_container)
         chronometer = findViewById(R.id.chronometer)
 
-        cellSize = resources.getInteger(R.integer.cell_size)
+        cellSize = intent.getIntExtra(CELL_SIZE, 0)
 
         if (savedInstanceState != null) {
             imageIndex = savedInstanceState.getInt("wally_pos")
@@ -199,5 +199,6 @@ class GameActivity : AppCompatActivity() {
     companion object {
         const val MESSAGE_KEY = "message"
         const val SELECTED_LEVEL_IMAGE_KEY = "selectedLevelImage"
+        const val CELL_SIZE = "cellsize"
     }
 }
