@@ -41,7 +41,18 @@ class FinalActivity : AppCompatActivity() {
         // Set up the click listeners
         playAgainButton.setOnClickListener { playAgain() }
         submitButton.setOnClickListener { sendEmail() }
-        exitButton.setOnClickListener { finishAffinity() }
+        exitButton.setOnClickListener { finishAll() }
+    }
+
+    private fun finishAll() {
+
+        val intent = Intent(Intent.ACTION_MAIN)
+        intent.addCategory(Intent.CATEGORY_HOME)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finishAffinity()
+
+
     }
 
 
