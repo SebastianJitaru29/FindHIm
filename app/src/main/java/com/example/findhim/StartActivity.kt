@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import java.lang.NumberFormatException
 
 class StartActivity : AppCompatActivity() {
-    private lateinit var PlayerName: EditText
+    private lateinit var playerName: EditText
     private lateinit var cellSize: EditText
     private lateinit var waldoGif: ImageView
     private var selectedLevelImage = -1
@@ -47,17 +47,17 @@ class StartActivity : AppCompatActivity() {
         waldoGif = findViewById(R.id.waldo_walking)
         Glide.with(this).load(R.drawable.walkingwaldo).into(waldoGif)
 
-        PlayerName = findViewById(R.id.firstInputEditText)
+        playerName = findViewById(R.id.firstInputEditText)
         cellSize = findViewById(R.id.cellSizeInput)
 
         val startGameButton = findViewById<Button>(R.id.saveButton)
         startGameButton.setOnClickListener { startGame() }
 
-        val levelButtons = listOf(
-            findViewById<Button>(R.id.level1),
-            findViewById<Button>(R.id.level2),
-            findViewById<Button>(R.id.level3),
-            findViewById<Button>(R.id.level4)
+        val levelButtons = listOf<Button>(
+            findViewById(R.id.level1),
+            findViewById(R.id.level2),
+            findViewById(R.id.level3),
+            findViewById(R.id.level4)
         )
         val levelImageIds = listOf(
             R.drawable.map1,
@@ -76,7 +76,7 @@ class StartActivity : AppCompatActivity() {
     }
 
     private fun startGame() {
-        val message = PlayerName.text.toString()
+        val message = playerName.text.toString()
         val cellSize = cellSize.text.toString()
 
         try {
