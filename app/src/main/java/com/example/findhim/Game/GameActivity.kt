@@ -123,6 +123,7 @@ class GameActivity : AppCompatActivity() {
                 }
                 // Set the number of rows and columns of the grid based on the calculated values
                 gridView.numColumns = numCols
+                gridView.stretchMode = GridView.NO_STRETCH
                 gridView.adapter = adapter
                 var toast: Toast? = null
                 Toast.makeText(
