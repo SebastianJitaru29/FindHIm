@@ -3,11 +3,8 @@ package com.example.findhim
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.Gravity
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.example.findhim.R
-import org.w3c.dom.Text
 
 class FinalActivity : AppCompatActivity() {
     private lateinit var firstNameEditText: EditText
@@ -42,9 +39,9 @@ class FinalActivity : AppCompatActivity() {
         totalTimeTextView.append(time)
 
         // Set up the click listeners
-        playAgainButton.setOnClickListener { showNotImplementedToast() }
+        playAgainButton.setOnClickListener { playAgain() }
         submitButton.setOnClickListener { sendEmail() }
-        exitButton.setOnClickListener { finishAllActivities() }
+        exitButton.setOnClickListener { finishAffinity() }
     }
 
     private fun showNotImplementedToast() {
@@ -82,8 +79,8 @@ class FinalActivity : AppCompatActivity() {
         }
     }
 
-    private fun finishAllActivities() {
-        val intent = Intent(applicationContext, MainActivity::class.java).apply {
+    private fun playAgain() {
+        val intent = Intent(applicationContext, StartActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         }
         startActivity(intent)
