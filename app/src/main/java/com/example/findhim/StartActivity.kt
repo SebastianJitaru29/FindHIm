@@ -24,6 +24,10 @@ class StartActivity : AppCompatActivity() {
 
         if (savedInstanceState != null) {
             selectedLevelImage = savedInstanceState.getInt("level")
+            lastPressedButtonId = savedInstanceState.getInt("button")
+            val lastPressedButton = findViewById<Button>(lastPressedButtonId)
+            lastPressedButton.setBackgroundResource(R.drawable.when_clicked)
+            lastPressedButton.setTextColor(ContextCompat.getColor(this, R.color.white))
         }
         MusicPlayer.setupMusicButton(this)
 
@@ -106,6 +110,7 @@ class StartActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt("level", selectedLevelImage)
+        outState.putInt("button", lastPressedButtonId)
     }
 
     override fun onPause() {
