@@ -11,10 +11,10 @@ interface GameDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveGame(game:Game)
 
-    @Query("SELECT * FROM game ORDER BY playerName ASC")
+    @Query("SELECT * FROM game_table ORDER BY nickname ASC")
     fun getContactOrderedByPlayerName(): Flow<List<Game>>
 
-    @Query("SELECT * FROM game ORDER BY gameTime ASC")
+    @Query("SELECT * FROM game_table ORDER BY game_time ASC")
     fun getContactOrderedByGameTime(): Flow<List<Game>>
 
 }

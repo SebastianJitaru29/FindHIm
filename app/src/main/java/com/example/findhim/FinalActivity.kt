@@ -5,43 +5,36 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.example.findhim.databinding.ActivityMainBinding
+import com.example.findhim.databinding.FinalLayoutBinding
+import com.example.findhim.persistency.Game
 
 class FinalActivity : AppCompatActivity() {
-    private lateinit var firstNameEditText: EditText
-    private lateinit var lastNameEditText: EditText
-    private lateinit var emailEditText: EditText
-    private lateinit var attemptsTextView: TextView
-    private lateinit var totalTimeTextView: TextView
-    private lateinit var playAgainButton: Button
-    private lateinit var submitButton: Button
-    private lateinit var exitButton: Button
+    lateinit var binding : FinalLayoutBinding
+
+
+
     private lateinit var nickname: String
     private lateinit var clicks: String
     private lateinit var time: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.final_layout)
-
+        binding = FinalLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        val bundle = intent.extras
+        val game = bundle?.getParcelable<Game>("game")
         // Find the views and initialize the variables
-        firstNameEditText = findViewById(R.id.first_name)
-        lastNameEditText = findViewById(R.id.last_name)
-        emailEditText = findViewById(R.id.email)
-        attemptsTextView = findViewById(R.id.attempts)
-        totalTimeTextView = findViewById(R.id.totaltime)
-        playAgainButton = findViewById(R.id.playagain_button)
-        submitButton = findViewById(R.id.submit_button)
-        exitButton = findViewById(R.id.exit_button)
-        nickname = intent.getStringExtra("nickname") ?: ""
-        clicks = intent.getStringExtra("clicks") ?: ""
-        time = intent.getStringExtra("time") ?: ""
-        attemptsTextView.append(clicks)
-        totalTimeTextView.append(time)
+        nickname = game?.nickname ?: ""
+        clicks = game?.clicks ?: ""
+        time = game?.gameTime ?: ""
+        binding.attempts.append(clicks)
+        binding.totaltime.append(time)
 
         // Set up the click listeners
-        playAgainButton.setOnClickListener { playAgain() }
-        submitButton.setOnClickListener { sendEmail() }
-        exitButton.setOnClickListener { finishAll() }
+        binding.playagainButton.setOnClickListener { playAgain() }
+        binding.submitButton.setOnClickListener { sendEmail() }
+        binding.exitButton.setOnClickListener { finishAll() }
     }
 
     private fun finishAll() {
@@ -57,13 +50,14 @@ class FinalActivity : AppCompatActivity() {
 
 
     private fun sendEmail() {
-        val firstName = firstNameEditText.text.toString()
-        val lastName = lastNameEditText.text.toString()
-        val email = emailEditText.text.toString()
+
+        val firstName = binding.firstName.text.toString()
+        val lastName = binding.lastName.text.toString()
+        val email = binding.email.text.toString()
 
         // Check if the email is valid
         if (!isValidEmail(email)) {
-            emailEditText.error = "Invalid email address"
+            binding.email.error = "Invalid email address"
             return
         }
 

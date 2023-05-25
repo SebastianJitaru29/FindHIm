@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.findhim.FinalActivity
 import com.example.findhim.R
+import com.example.findhim.persistency.Game
 import java.util.*
 
 
@@ -61,6 +62,8 @@ class GameActivity : AppCompatActivity() {
         createGrid()
 
     }
+    //EXTERNALITZAR TOT
+    //Implementar un timeout de x minuts, si s arriba al timeout game over , i es guarda la partida com a perduda, podem mostrar pop up ...
 
     private fun createGrid() {
         //Listener to wait for the image to be drawn and calculate the cells
@@ -115,8 +118,8 @@ class GameActivity : AppCompatActivity() {
                             toast?.show()
 
                             val intent = Intent(this@GameActivity, FinalActivity::class.java)
-                            setLogs(intent)
-                            startActivity(intent)
+                            setLogs(intent)//set logs creara bundle con objeto tipo game que es parcelable
+                            startActivity(intent)//pass the game object to the next activity
                             finish()
                         } else {
                             // Show toast
@@ -200,9 +203,11 @@ class GameActivity : AppCompatActivity() {
 
 
     private fun setLogs(intent: Intent): Intent {
-        intent.putExtra("clicks", clicks.toString())
-        intent.putExtra("time", chronometer.text.toString())
-        intent.putExtra("nickname", message)
+        val game = Game(null,message,clicks.toString(),chronometer.text.toString())
+        //save game in database here
+        val bundle = Bundle()
+        bundle.putParcelable("game",game)
+        intent.putExtras(bundle)
         return intent
     }
 
