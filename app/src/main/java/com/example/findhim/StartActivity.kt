@@ -7,7 +7,10 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
+import com.example.findhim.databinding.StartLayoutBinding
+import com.example.findhim.fragments.StartActivity.DifficultySelector
 import com.example.findhim.utils.MusicPlayer
 import java.lang.NumberFormatException
 
@@ -18,34 +21,39 @@ class StartActivity : AppCompatActivity() {
     private var selectedLevelImage = -1
     private var lastPressedButtonId = 0
 
+    private lateinit var binding: StartLayoutBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.start_layout)
+        binding = StartLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (savedInstanceState != null) {
-            selectedLevelImage = savedInstanceState.getInt("level")
-            lastPressedButtonId = savedInstanceState.getInt("button")
+            selectedLevelImage = savedInstanceState.getInt(getString(R.string.LEVEL))
+            lastPressedButtonId = savedInstanceState.getInt(getString(R.string.BUTTON_SELECTED))
             val lastPressedButton = findViewById<Button>(lastPressedButtonId)
             lastPressedButton.setBackgroundResource(R.drawable.when_clicked)
             lastPressedButton.setTextColor(ContextCompat.getColor(this, R.color.white))
         }
         MusicPlayer.setupMusicButton(this)
 
+        binding.lev?.setOnClickListener { showDifficultySelector() }
+
         //Set gif
-        waldoGif = findViewById(R.id.waldo_walking)
+        waldoGif = binding.waldoWalking
         Glide.with(this).load(R.drawable.walkingwaldo).into(waldoGif)
 
-        playerName = findViewById(R.id.firstInputEditText)
-        cellSize = findViewById(R.id.cellSizeInput)
+        playerName = binding.firstInputEditText
+        cellSize = binding.cellSizeInput
 
-        val startGameButton = findViewById<Button>(R.id.saveButton)
+        val startGameButton = binding.saveButton
         startGameButton.setOnClickListener { startGame() }
 
         val levelButtons = listOf<Button>(
-            findViewById(R.id.level1),
-            findViewById(R.id.level2),
-            findViewById(R.id.level3),
-            findViewById(R.id.level4)
+            binding.level1,
+            binding.level2,
+            binding.level3,
+            binding.level4
         )
         val levelImageIds = listOf(
             R.drawable.map1,
@@ -87,7 +95,7 @@ class StartActivity : AppCompatActivity() {
         }
     }
 
-    private fun setButtonBackground(button: Button) {
+    fun setButtonBackground(button: Button) {
         //If last pressed is same, do nothing
         if (lastPressedButtonId == button.id)
             return
@@ -105,6 +113,20 @@ class StartActivity : AppCompatActivity() {
 
         //save
         lastPressedButtonId = button.id
+    }
+
+    private fun showDifficultySelector() {
+        val fragmentManager = supportFragmentManager
+        val sizeFragment = fragmentManager.findFragmentById(R.id.fragment) as? DifficultySelector
+
+        if (sizeFragment == null) {
+            val fragment = DifficultySelector()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment, fragment)
+                .addToBackStack(null)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                .commit()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
