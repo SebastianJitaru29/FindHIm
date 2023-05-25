@@ -2,90 +2,115 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     tools:context=".fragments.StartActivity.DifficultySelector">
 
-    <TextView
-        android:id="@+id/selector_tittle"
+    <LinearLayout
+        android:padding="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Choose an option"
-        app:layout_constraintBottom_toTopOf="@+id/gridDifficulties"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@drawable/grey_rectangle"
+        android:gravity="center"
+        android:orientation="vertical"
 
-    <GridLayout
-        android:id="@+id/gridDifficulties"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alignmentMode="alignMargins"
-        android:columnCount="2"
-        android:columnOrderPreserved="true"
-        android:padding="10dp"
-        android:rowCount="2"
-        android:useDefaultMargins="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/selector_tittle">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/tinyButton"
+        <TextView
+            android:id="@+id/selector_tittle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Choose an option"
+            app:layout_constraintBottom_toTopOf="@+id/gridDifficulties"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:background="@drawable/not_clicked"
-            android:text="Tiny"
-            android:textColor="@color/light_red"
-            app:backgroundTint="@null" />
-
-        <Button
-            android:id="@+id/smallButton"
+        <GridLayout
+            android:id="@+id/gridDifficulties"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:background="@drawable/not_clicked"
-            android:text="Small"
-            android:textColor="@color/light_red"
-            app:backgroundTint="@null" />
+            android:alignmentMode="alignMargins"
+            android:columnCount="2"
+            android:columnOrderPreserved="true"
+            android:padding="10dp"
+            android:rowCount="2"
+            android:useDefaultMargins="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/selector_tittle">
+
+            <Button
+                android:id="@+id/tinyButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/not_clicked"
+                android:text="Tiny"
+                android:textColor="@color/light_red"
+                app:backgroundTint="@null" />
+
+            <Button
+                android:id="@+id/smallButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/not_clicked"
+                android:text="Small"
+                android:textColor="@color/light_red"
+                app:backgroundTint="@null" />
+
+            <Button
+                android:id="@+id/mediumButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/not_clicked"
+                android:text="Medium"
+                android:textColor="@color/light_red"
+                app:backgroundTint="@null" />
+
+            <Button
+                android:id="@+id/bigButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:background="@drawable/not_clicked"
+                android:text="Big"
+                android:textColor="@color/light_red"
+                app:backgroundTint="@null" />
+
+        </GridLayout>
+
+        <ImageView
+            android:id="@+id/display_image"
+            android:layout_width="120dp"
+            android:layout_height="100dp"
+            android:src="@drawable/wally"
+            app:layout_constraintBottom_toTopOf="@id/confirm_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gridDifficulties" />
+
 
         <Button
-            android:id="@+id/mediumButton"
+            android:id="@+id/confirm_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:background="@drawable/not_clicked"
-            android:text="Medium"
-            android:textColor="@color/light_red"
-            app:backgroundTint="@null" />
+            android:text="Confirm"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gridDifficulties" />
 
-        <Button
-            android:id="@+id/bigButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_rowWeight="1"
-            android:layout_columnWeight="1"
-            android:background="@drawable/not_clicked"
-            android:text="Big"
-            android:textColor="@color/light_red"
-            app:backgroundTint="@null" />
-
-    </GridLayout>
-
-    <ImageView
-        android:id="@+id/display_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gridDifficulties"
-        />
-
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

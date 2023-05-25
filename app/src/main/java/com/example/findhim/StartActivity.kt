@@ -31,9 +31,12 @@ class StartActivity : AppCompatActivity() {
         if (savedInstanceState != null) {
             selectedLevelImage = savedInstanceState.getInt(getString(R.string.LEVEL))
             lastPressedButtonId = savedInstanceState.getInt(getString(R.string.BUTTON_SELECTED))
-            val lastPressedButton = findViewById<Button>(lastPressedButtonId)
-            lastPressedButton.setBackgroundResource(R.drawable.when_clicked)
-            lastPressedButton.setTextColor(ContextCompat.getColor(this, R.color.white))
+
+            if (lastPressedButtonId != 0) {
+                val lastPressedButton = findViewById<Button>(lastPressedButtonId)
+                lastPressedButton.setBackgroundResource(R.drawable.when_clicked)
+                lastPressedButton.setTextColor(ContextCompat.getColor(this, R.color.white))
+            }
         }
         MusicPlayer.setupMusicButton(this)
 
@@ -49,7 +52,7 @@ class StartActivity : AppCompatActivity() {
         val startGameButton = binding.saveButton
         startGameButton.setOnClickListener { startGame() }
 
-        val levelButtons = listOf<Button>(
+        val levelButtons = listOf(
             binding.level1,
             binding.level2,
             binding.level3,
