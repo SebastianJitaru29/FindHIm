@@ -3,7 +3,7 @@ package com.example.findhim.persistency
 import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.Flow
 
-class WordRepository(private val gameDao: GameDao) {
+class GameRepository(private val gameDao: GameDao) {
 
     // Room executes all queries on a separate thread.
     // Observed Flow will notify the observer when the data has changed.

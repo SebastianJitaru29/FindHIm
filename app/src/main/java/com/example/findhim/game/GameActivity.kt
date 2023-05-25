@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.findhim.FinalActivity
 import com.example.findhim.R
+import com.example.findhim.databinding.ActivityMainBinding
+import com.example.findhim.databinding.GameLayoutBinding
 import com.example.findhim.persistency.Game
 import java.util.*
 
@@ -23,6 +25,9 @@ class GameActivity : AppCompatActivity() {
     private lateinit var backgroundImage: Drawable
     private lateinit var bgImage: ImageView
     private lateinit var chronometer: Chronometer
+
+    lateinit var binding : GameLayoutBinding
+
     private var cellSize: Int = 0
     private var clicks: Int = 0
     private var imageIndex: Int = -1
@@ -31,7 +36,8 @@ class GameActivity : AppCompatActivity() {
     private var message: String? = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.game_layout)
+        binding = GameLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         gridView = findViewById(R.id.gridView)
         textInput1 = findViewById(R.id.text_input1)
