@@ -27,6 +27,8 @@
 
     <!--    Game Activity-->
     <string name="game_title">Welcome to the Game! %s, Attempts: %d</string>
+    <string name="win_text">You win!</string>
+    <string name="try_again">Try again!</string>
 
     <!--    Final Layout-->
     <string name="tittle_final">Congratulations! You found Wally</string>
@@ -39,6 +41,13 @@
     <string name="enter_your_email_address">Enter your email address</string>
     <string name="submit">Submit</string>
     <string name="history">History</string>
+
+
+    <!--    Keys-->
+    <string name="LEVEL">level</string>
+    <string name="BUTTON_SELECTED">button</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
