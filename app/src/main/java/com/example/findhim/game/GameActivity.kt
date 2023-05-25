@@ -5,18 +5,20 @@ import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.viewModels
 
 import android.view.ViewTreeObserver
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.findhim.FinalActivity
 import com.example.findhim.R
-import com.example.findhim.databinding.ActivityMainBinding
 import com.example.findhim.databinding.GameLayoutBinding
 import com.example.findhim.persistency.Game
+import com.example.findhim.persistency.GameApplication
+import com.example.findhim.persistency.GameViewModel
+import com.example.findhim.persistency.GameViewModelFactory
 import java.util.*
 
 
@@ -27,6 +29,9 @@ class GameActivity : AppCompatActivity() {
     private lateinit var backgroundImage: Drawable
     private lateinit var bgImage: ImageView
     private lateinit var chronometer: Chronometer
+
+    private val GameViewModel: GameViewModel by viewModels { GameViewModelFactory((application as GameApplication).repository)
+    }
 
     lateinit var binding : GameLayoutBinding
 
@@ -221,6 +226,7 @@ class GameActivity : AppCompatActivity() {
 
     private fun setLogs(intent: Intent): Intent {
         val game = Game(null,message,clicks.toString(),chronometer.text.toString())
+        GameViewModel.insert(game)
         //save game in database here
         val bundle = Bundle()
         bundle.putParcelable("game",game)
