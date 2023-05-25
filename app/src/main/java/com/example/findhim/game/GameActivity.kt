@@ -120,7 +120,11 @@ class GameActivity : AppCompatActivity() {
 
                             toast?.cancel()
                             toast =
-                                Toast.makeText(this@GameActivity, "You win!", Toast.LENGTH_SHORT)
+                                Toast.makeText(
+                                    this@GameActivity,
+                                    getString(R.string.win_text),
+                                    Toast.LENGTH_SHORT
+                                )
                             toast?.show()
 
                             val intent = Intent(this@GameActivity, FinalActivity::class.java)
@@ -131,7 +135,11 @@ class GameActivity : AppCompatActivity() {
                             // Show toast
                             toast?.cancel()
                             toast =
-                                Toast.makeText(this@GameActivity, "Try again!", Toast.LENGTH_SHORT)
+                                Toast.makeText(
+                                    this@GameActivity,
+                                    getString(R.string.try_again),
+                                    Toast.LENGTH_SHORT
+                                )
                             toast?.show()
                         }
                     }
@@ -143,6 +151,7 @@ class GameActivity : AppCompatActivity() {
             }
         })
     }
+
     private fun createCells(numCells: Int): Array<Int> {
         return Array(numCells) { if (it == imageIndex) R.drawable.wally else R.drawable.transparent_square }
     }
