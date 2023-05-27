@@ -3,6 +3,7 @@ package com.example.findhim.fragments.game
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -115,6 +116,10 @@ class GameFragment : Fragment() {
                     numRows = finalHeight / cellSize
                 }
                 val numCells = numRows * numCols
+                Log.e(
+                    "GameFragment",
+                    "$numCells $numCols $numRows $cellSize $backgroundImageId"
+                )
 
                 gridView.columnWidth = cellSize
 
@@ -122,8 +127,8 @@ class GameFragment : Fragment() {
                 // Create a list of cell values
                 if (imageIndex == -1) {
                     val random = Random()
-//                    imageIndex = random.nextInt(numCells)
-                    imageIndex = random.nextInt(10)
+                    imageIndex = random.nextInt(numCells)
+//                    imageIndex = random.nextInt(10)
                 }
 
                 val cellValues = createCells(numCells)
@@ -181,7 +186,7 @@ class GameFragment : Fragment() {
     }
 
     private fun createCells(numCells: Int): Array<Int> {
-        return Array(numCells) { if (it == imageIndex) R.drawable.wally else R.drawable.transparent_square }
+        return Array(numCells) { if (it == imageIndex) R.drawable.wally else R.drawable.rounded_rectangle_blue }
     }
 
     private fun createAdapter(cellValues: Array<Int>): BaseAdapter {
@@ -232,6 +237,12 @@ class GameFragment : Fragment() {
         bundle.putParcelable("game", game)
         intent.putExtras(bundle)
         return intent
+    }
+
+    fun update(cellSize: Int, backgroundImageId: Int, nickname: String?) {
+        this.cellSize = cellSize
+        this.backgroundImageId = backgroundImageId
+        this.message = nickname
     }
 
 
