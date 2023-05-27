@@ -1,5 +1,6 @@
 package com.example.findhim.fragments.game
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,22 +12,28 @@ import android.widget.BaseAdapter
 import android.widget.Chronometer
 import android.widget.GridView
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.findhim.FinalActivity
 import com.example.findhim.R
 import com.example.findhim.databinding.FragmentGameBinding
 import com.example.findhim.game.GameActivity
-import com.example.findhim.game.GameActivity.Companion.SELECTED_LEVEL_IMAGE_KEY
 import com.example.findhim.persistency.Game
+import com.example.findhim.persistency.GameApplication
+import com.example.findhim.persistency.GameViewModel
+import com.example.findhim.persistency.GameViewModelFactory
 import java.util.Random
 
 
 class GameFragment : Fragment() {
 
     private lateinit var binding: FragmentGameBinding
+    private lateinit var gameActivity: GameActivity
+    private val gameViewModel: GameViewModel by viewModels {
+        GameViewModelFactory((requireActivity().application as GameApplication).repository)
+    }
+
 
     private lateinit var gridView: GridView
     private lateinit var bgImage: ImageView
@@ -39,14 +46,32 @@ class GameFragment : Fragment() {
     private var numCols: Int = 0
     private var numRows: Int = 0
 
+    private var mListener: GameFragmentListener? = null
+
     private var message: String? = ""
 
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mListener = try {
+            context as GameFragmentListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException("$context must implement GameFragmentListener")
+        }
+    }
+
+    interface GameFragmentListener {
+        fun onStopTime()
+        fun onStartTime()
+        fun onGetTime(): Chronometer?
+        fun onUserClick()
+        fun getAttempts(): Int?
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         binding = FragmentGameBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -55,9 +80,12 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        gameActivity = requireActivity() as GameActivity
+
         arguments?.let {
             cellSize = it.getInt(ARG_CELL_SIZE, 100)
             backgroundImageId = it.getInt(ARG_MAP, 0)
+            message = it.getString(ARG_NICKNAME)
         }
 
         gridView = binding.gridView
@@ -69,22 +97,11 @@ class GameFragment : Fragment() {
 
     }
 
-
-    companion object {
-        //TODO set to strings.xml
-        private const val ARG_CELL_SIZE = "arg_cell_size"
-        private const val ARG_MAP = "arg_map"
-
-        fun newInstance(cellSize: Int, backgroundImageId: Int): GameFragment {
-            val fragment = GameFragment()
-            val args = Bundle()
-            args.putInt(ARG_CELL_SIZE, cellSize)
-            args.putInt(ARG_MAP, backgroundImageId)
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
+//    override fun onSaveInstanceState(outState: Bundle) {
+//        super.onSaveInstanceState(outState)
+//        mListener?.onStopTime()
+//
+//    }
 
     private fun createGrid() {
         //Listener to wait for the image to be drawn and calculate the cells
@@ -108,7 +125,8 @@ class GameFragment : Fragment() {
                 // Create a list of cell values
                 if (imageIndex == -1) {
                     val random = Random()
-                    imageIndex = random.nextInt(numCells)
+//                    imageIndex = random.nextInt(numCells)
+                    imageIndex = random.nextInt(10)
                 }
 
                 val cellValues = createCells(numCells)
@@ -123,11 +141,12 @@ class GameFragment : Fragment() {
                 // Set onItemClick Listener for each cell to detect when the user clicks on it
                 gridView.onItemClickListener =
                     AdapterView.OnItemClickListener { _, _, position, _ ->
-                        clicks++
+                        mListener?.onUserClick()
 
                         // If the user clicks on the image, display a message and finish the activity
                         if (position == imageIndex) {
 //                            chronometer.stop()
+                            mListener?.onStopTime()
 
                             toast?.cancel()
                             toast =
@@ -156,7 +175,8 @@ class GameFragment : Fragment() {
                     }
 
                 // It doesn't matter if it has already been started
-//                chronometer.start()
+//                gameActivity.chronometer.start()
+                mListener?.onStartTime()
 
                 return true
             }
@@ -203,11 +223,35 @@ class GameFragment : Fragment() {
     }
 
     private fun setLogs(intent: Intent): Intent {
-        val game = Game(null, message, clicks.toString(), "chronometer.text.toString()")
+        val game = Game(
+            null,
+            message,
+            mListener?.getAttempts().toString(),
+            mListener?.onGetTime()?.text.toString()
+        )
+        gameViewModel.insert(game)
         //save game in database here
         val bundle = Bundle()
         bundle.putParcelable("game", game)
         intent.putExtras(bundle)
         return intent
+    }
+
+
+    companion object {
+        //TODO set to strings.xml
+        private const val ARG_CELL_SIZE = "arg_cell_size"
+        private const val ARG_MAP = "arg_map"
+        private const val ARG_NICKNAME = "arg_name"
+
+        fun newInstance(cellSize: Int, backgroundImageId: Int, nickname: String?): GameFragment {
+            val fragment = GameFragment()
+            val args = Bundle()
+            args.putInt(ARG_CELL_SIZE, cellSize)
+            args.putInt(ARG_MAP, backgroundImageId)
+            args.putString(ARG_NICKNAME, nickname)
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

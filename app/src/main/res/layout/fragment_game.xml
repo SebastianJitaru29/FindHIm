@@ -4,7 +4,6 @@
     android:id="@+id/grid_container"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_below="@id/text_input1"
     android:layout_centerVertical="true"
     android:layout_margin="16dp"
     android:background="@drawable/rounded_rectangle_red"
