@@ -186,7 +186,7 @@ class GameFragment : Fragment() {
     }
 
     private fun createCells(numCells: Int): Array<Int> {
-        return Array(numCells) { if (it == imageIndex) R.drawable.wally else R.drawable.rounded_rectangle_blue }
+        return Array(numCells) { if (it == imageIndex) R.drawable.wally else R.drawable.transparent_square }
     }
 
     private fun createAdapter(cellValues: Array<Int>): BaseAdapter {
