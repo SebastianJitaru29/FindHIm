@@ -17,12 +17,10 @@ import com.example.findhim.game.GameActivity
 
 class StatsFragment : Fragment() {
     private lateinit var binding: FragmentStatsBinding
-    private lateinit var gameActivity: GameActivity
 
     private var attempts: Int = 0
     private lateinit var chronometer: Chronometer
     private lateinit var attemptsTextView: TextView
-    private var chronometerTime: Long = 0L
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,10 +33,6 @@ class StatsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        arguments?.let {
-            attempts = it.getInt(ARG_ATTEMPTS, 0)
-        }
         chronometer = binding.chronometerr
         attemptsTextView = binding.attempts
 
@@ -46,7 +40,7 @@ class StatsFragment : Fragment() {
         if (savedInstanceState != null) {
             attempts = savedInstanceState.getInt("attempts")
             chronometer.base = savedInstanceState.getLong("Time")
-            chronometer.start()
+            startTime()
         }
         attemptsTextView.text = attempts.toString()
 
@@ -60,16 +54,11 @@ class StatsFragment : Fragment() {
 
 
     fun startTime() {
-//        if (chronometerTime != 0L) {
-//            chronometer.base = chronometerTime
-//        }
         chronometer.start()
-        Log.e("time", "Started")
     }
 
     fun stopTime() {
         chronometer.stop()
-        saveTime()
     }
 
     fun getTime(): Chronometer {
@@ -85,22 +74,6 @@ class StatsFragment : Fragment() {
         attemptsTextView.text = attempts.toString()
     }
 
-    private fun saveTime() {
-        chronometerTime = chronometer.base
-    }
 
-
-    companion object {
-        //TODO set to strings.xml
-        private const val ARG_ATTEMPTS = "arg_ATTEMPTS"
-
-        fun newInstance(attempts: Int): StatsFragment {
-            val fragment = StatsFragment()
-            val args = Bundle()
-            args.putInt(ARG_ATTEMPTS, attempts)
-            fragment.arguments = args
-            return fragment
-        }
-    }
 
 }

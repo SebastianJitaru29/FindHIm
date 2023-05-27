@@ -60,13 +60,6 @@ class GameFragment : Fragment() {
         }
     }
 
-    interface GameFragmentListener {
-        fun onStopTime()
-        fun onStartTime()
-        fun onGetTime(): Chronometer?
-        fun onUserClick()
-        fun getAttempts(): Int?
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,7 +69,6 @@ class GameFragment : Fragment() {
         return binding.root
     }
 
-    //TODO fix chronometer
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -93,15 +85,20 @@ class GameFragment : Fragment() {
 
         bgImage.setImageResource(backgroundImageId)
 
+        if (savedInstanceState != null) {
+            imageIndex = savedInstanceState.getInt("waldoPos", -1)
+        }
+
         createGrid()
 
     }
 
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        mListener?.onStopTime()
-//
-//    }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        //waldo pos
+        outState.putInt("waldoPos", imageIndex)
+
+    }
 
     private fun createGrid() {
         //Listener to wait for the image to be drawn and calculate the cells

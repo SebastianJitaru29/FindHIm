@@ -1,6 +1,7 @@
 package com.example.findhim.game
 
 import android.os.Bundle
+import android.util.Log
 
 import android.widget.*
 import androidx.activity.OnBackPressedCallback
@@ -9,18 +10,15 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.findhim.R
 import com.example.findhim.databinding.GameLayoutBinding
 import com.example.findhim.fragments.game.GameFragment
+import com.example.findhim.fragments.game.GameFragmentListener
 import com.example.findhim.fragments.game.StatsFragment
 import com.example.findhim.persistency.GameApplication
 import com.example.findhim.persistency.GameViewModel
 import com.example.findhim.persistency.GameViewModelFactory
 
 
-class GameActivity : AppCompatActivity(), GameFragment.GameFragmentListener {
+class GameActivity : AppCompatActivity(), GameFragmentListener {
 
-
-    private val GameViewModel: GameViewModel by viewModels {
-        GameViewModelFactory((application as GameApplication).repository)
-    }
 
     lateinit var binding: GameLayoutBinding
 
@@ -39,11 +37,8 @@ class GameActivity : AppCompatActivity(), GameFragment.GameFragmentListener {
 
         if (savedInstanceState != null) {
             imageIndex = savedInstanceState.getInt("wally_pos")
-            clicks = savedInstanceState.getInt("attempts")
             numCols = savedInstanceState.getInt("cols")
             numRows = savedInstanceState.getInt("rows")
-//            chronometer.base = savedInstanceState.getLong("chrono_time")
-//            chronometer.start()
         }
 
         // Get the input values passed from the MainActivity
@@ -54,7 +49,7 @@ class GameActivity : AppCompatActivity(), GameFragment.GameFragmentListener {
         cellSize = intent.getIntExtra(CELL_SIZE, 100)
         onBack()
 
-        createStatsFragment(clicks)
+        createStatsFragment()
         createGameFragment(cellSize, backgroundImageId, message)
 
 
@@ -64,21 +59,20 @@ class GameActivity : AppCompatActivity(), GameFragment.GameFragmentListener {
 
 
     private fun createGameFragment(cellSize: Int, backgroundImageId: Int, nickname: String?) {
-
-        val fragment = GameFragment.newInstance(cellSize, backgroundImageId, nickname)
-        // replace the placeholder container with the new fragment and commit
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_game, fragment)
-            .commit()
+            val fragment = GameFragment.newInstance(cellSize, backgroundImageId, nickname)
+            // replace the placeholder container with the new fragment and commit
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_game, fragment)
+                .commit()
 
     }
 
-    private fun createStatsFragment(attempts: Int) {
+    private fun createStatsFragment() {
         val existsFragment = supportFragmentManager.findFragmentById(R.id.fragment_stats)
 
         //If it exists, do no recreate
         if (existsFragment == null) {
-            val fragment = StatsFragment.newInstance(attempts)
+            val fragment = StatsFragment()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.fragment_stats, fragment)
                 .commit()
@@ -86,19 +80,6 @@ class GameActivity : AppCompatActivity(), GameFragment.GameFragmentListener {
 
     }
 
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-////        onGetTime()?.let { outState.putLong("chrono_time", it.base) }
-//        outState.putInt("wally_pos", imageIndex)
-//        outState.putInt("attempts", clicks)
-//        outState.putInt("cols", numCols)
-//        outState.putInt("rows", numRows)
-//    }
-
-    override fun onDestroy() {
-//        chronometer.stop()
-        super.onDestroy()
-    }
 
     private fun onBack() {
         onBackPressedDispatcher.addCallback(
