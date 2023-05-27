@@ -11,7 +11,7 @@ interface GameDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveGame(game:Game)
 
-    @Query("SELECT * FROM game_table ORDER BY nickname ASC")
+    @Query("SELECT * FROM game_table ORDER BY id ASC")
     fun getContactOrderedByPlayerName(): Flow<List<Game>>
 
     @Query("SELECT * FROM game_table ORDER BY game_time ASC")

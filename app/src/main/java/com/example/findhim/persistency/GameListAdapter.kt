@@ -18,7 +18,8 @@ class GameListAdapter: ListAdapter<Game, GameViewHolder>(GAMES_COMPARATOR) {
 
     override fun onBindViewHolder(holder: GameViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current.nickname)
+        holder.bind(current)
+
     }
 
     companion object {
