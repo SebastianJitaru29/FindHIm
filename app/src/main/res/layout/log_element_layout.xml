@@ -1,27 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/playerName"
-        tools:text="player1"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="40sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        />
-    <TextView
-        android:id="@+id/levelPlayed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="level 4"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/playerName"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:layout_margin="10dp"
+        android:background="@color/purple_200">
 
+        <TextView
+            android:id="@+id/gameIdLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Game ID: "
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:id="@+id/gameId"
+            tools:text="x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_toEndOf="@id/gameIdLabel"
+            />
+        <TextView
+            android:id="@+id/playerNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gameIdLabel"
+            android:text="Nickname: "
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/playerName"
+            tools:text="player1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/gameIdLabel"
+            android:textColor="@color/black"
+            android:layout_toEndOf="@id/playerNameLabel"
+            />
+
+        <TextView
+            android:id="@+id/gameTimeLabel"
+            android:layout_below="@id/playerNameLabel"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="TimeSpent: "
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/gameTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/playerNameLabel"
+
+            android:layout_toEndOf="@id/gameTimeLabel"
+            android:textColor="@color/black"
+            tools:text="00:00" />
+
+        <TextView
+            android:id="@+id/clicksLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gameTimeLabel"
+            android:text="Clicks:"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/clicks"
+            android:layout_below="@id/gameTimeLabel"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textColor="@color/black"
+            tools:text="0"
+
+            android:layout_toEndOf="@id/clicksLabel"
+            />
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
