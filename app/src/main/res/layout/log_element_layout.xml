@@ -18,7 +18,7 @@
             android:id="@+id/gameIdLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Game ID: "
+            android:text="@string/game_id"
             android:textColor="@color/black"
             />
         <TextView
@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/gameIdLabel"
-            android:text="Nickname: "
+            android:text="@string/nickname"
             android:textColor="@color/black"
             />
 
@@ -53,7 +53,7 @@
             android:layout_below="@id/playerNameLabel"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="TimeSpent: "
+            android:text="@string/timespent"
             android:textColor="@color/black"
             />
 
@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/gameTimeLabel"
-            android:text="Clicks:"
+            android:text="@string/clicks"
             android:textColor="@color/black" />
 
         <TextView
