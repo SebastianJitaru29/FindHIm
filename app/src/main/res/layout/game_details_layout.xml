@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/sand">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/audioLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/music"
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:background="@drawable/audio_on"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/helpTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/audioLayout"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/game_details"
+        android:textAlignment="center"
+        android:textSize="50sp" />
+
+    <RelativeLayout
+        android:id="@+id/messageFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/backButton"
+        android:layout_below="@+id/helpTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_rectangle_red">
+
+        <TextView
+            android:id="@+id/gameTimetv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:text="Hola"/>
+        <TextView
+            android:id="@+id/clickstv"
+            android:layout_centerHorizontal="true"
+            android:text="como estas"
+            android:textStyle="bold"
+            android:layout_below="@id/gameTimetv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:onClick="goBack"
+        android:text="@string/backPage" />
+
+</RelativeLayout>

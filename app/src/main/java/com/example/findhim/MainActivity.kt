@@ -3,7 +3,6 @@ package com.example.findhim
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import com.example.findhim.persistency.LogActivity
 import com.example.findhim.utils.StartMusicActivity
 import com.example.findhim.utils.MusicPlayer
 

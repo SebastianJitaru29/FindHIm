@@ -1,18 +1,14 @@
-package com.example.findhim.persistency
+package com.example.findhim
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Recycler
-import com.example.findhim.R
 import com.example.findhim.databinding.LogLayoutBinding
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.findhim.persistency.GameApplication
+import com.example.findhim.persistency.GameListAdapter
+import com.example.findhim.persistency.GameViewModel
+import com.example.findhim.persistency.GameViewModelFactory
 
 class LogActivity : AppCompatActivity(){
     private val gameViewModel: GameViewModel by viewModels { GameViewModelFactory((application as GameApplication).repository)
