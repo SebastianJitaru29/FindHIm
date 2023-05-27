@@ -11,20 +11,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.example.findhim.R
+import com.example.findhim.databinding.LogLayoutBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class LogActivity : AppCompatActivity(){
     private val gameViewModel: GameViewModel by viewModels { GameViewModelFactory((application as GameApplication).repository)
     }
-
+    private lateinit var binding: LogLayoutBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.log_layout)
+        binding = LogLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val recyclerView = findViewById<RecyclerView>(R.id.rv)
         val adapter = GameListAdapter()
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.rv?.adapter = adapter
+        binding.rv?.layoutManager = LinearLayoutManager(this)
 
 
         // Add an observer on the LiveData returned by getAlphabetizedWords.
