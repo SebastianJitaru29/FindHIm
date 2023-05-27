@@ -14,6 +14,7 @@ class LogActivity : AppCompatActivity(){
     private val gameViewModel: GameViewModel by viewModels { GameViewModelFactory((application as GameApplication).repository)
     }
     private lateinit var binding: LogLayoutBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = LogLayoutBinding.inflate(layoutInflater)
@@ -22,7 +23,7 @@ class LogActivity : AppCompatActivity(){
         val adapter = GameListAdapter()
         binding.rv?.adapter = adapter
         binding.rv?.layoutManager = LinearLayoutManager(this)
-
+        binding.deleteBtn!!.setOnClickListener { gameViewModel.delete()}
 
         // Add an observer on the LiveData returned by getAlphabetizedWords.
         // The onChanged() method fires when the observed data changes and the activity is

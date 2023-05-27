@@ -53,6 +53,7 @@
     <string name="timespent">TimeSpent:</string>
     <string name="clicks">Clicks:</string>
     <string name="game_details">Game Details</string>
+    <string name="delete_all">Delete All</string>
 
 
 </resources>

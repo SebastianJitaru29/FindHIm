@@ -17,4 +17,7 @@ interface GameDao {
     @Query("SELECT * FROM game_table ORDER BY game_time ASC")
     fun getContactOrderedByGameTime(): Flow<List<Game>>
 
+    @Query("DELETE FROM game_table")
+    suspend fun deleteAllGames()
+
 }
