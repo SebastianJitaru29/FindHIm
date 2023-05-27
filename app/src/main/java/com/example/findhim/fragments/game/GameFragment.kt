@@ -1,97 +1,90 @@
-package com.example.findhim.game
+package com.example.findhim.fragments.game
 
 import android.content.Intent
-import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import android.view.ViewTreeObserver
-import android.widget.*
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.AdapterView
+import android.widget.BaseAdapter
+import android.widget.Chronometer
+import android.widget.GridView
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.example.findhim.FinalActivity
 import com.example.findhim.R
-import com.example.findhim.databinding.GameLayoutBinding
-import com.example.findhim.fragments.game.GameFragment
+import com.example.findhim.databinding.FragmentGameBinding
+import com.example.findhim.game.GameActivity
+import com.example.findhim.game.GameActivity.Companion.SELECTED_LEVEL_IMAGE_KEY
 import com.example.findhim.persistency.Game
-import com.example.findhim.persistency.GameApplication
-import com.example.findhim.persistency.GameViewModel
-import com.example.findhim.persistency.GameViewModelFactory
-import java.util.*
+import java.util.Random
 
 
-class GameActivity : AppCompatActivity() {
+class GameFragment : Fragment() {
+
+    private lateinit var binding: FragmentGameBinding
+
     private lateinit var gridView: GridView
-    private lateinit var textInput1: TextView
-    private lateinit var gridContainer: FrameLayout
-    private lateinit var backgroundImage: Drawable
     private lateinit var bgImage: ImageView
     private lateinit var chronometer: Chronometer
 
-    private val GameViewModel: GameViewModel by viewModels { GameViewModelFactory((application as GameApplication).repository)
-    }
-
-    lateinit var binding: GameLayoutBinding
-
-    private var cellSize: Int = 0
+    private var backgroundImageId: Int = 0
+    private var cellSize: Int = 100
     private var clicks: Int = 0
     private var imageIndex: Int = -1
     private var numCols: Int = 0
     private var numRows: Int = 0
+
     private var message: String? = ""
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = GameLayoutBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-<<<<<<< HEAD
-
-        gridView = binding.gridView
-=======
-//        gridView = findViewById(R.id.gridView)
->>>>>>> c66a44f0c42fdf469efc118ab5eb8876b71ebf0e
-        textInput1 = findViewById(R.id.text_input1)
-//        gridContainer = findViewById(R.id.grid_container)
-        chronometer = findViewById(R.id.chronometer)
 
 
-        if (savedInstanceState != null) {
-            imageIndex = savedInstanceState.getInt("wally_pos")
-            clicks = savedInstanceState.getInt("attempts")
-            numCols = savedInstanceState.getInt("cols")
-            numRows = savedInstanceState.getInt("rows")
-            chronometer.base = savedInstanceState.getLong("chrono_time")
-            chronometer.start()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        // Inflate the layout for this fragment
+        binding = FragmentGameBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    //TODO fix chronometer
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        arguments?.let {
+            cellSize = it.getInt(ARG_CELL_SIZE, 100)
+            backgroundImageId = it.getInt(ARG_MAP, 0)
         }
 
-        // Get the input values passed from the MainActivity
-//        bgImage = findViewById(R.id.map)
-        val backgroundImageId = intent.getIntExtra(SELECTED_LEVEL_IMAGE_KEY, 0)
-//        backgroundImage = ContextCompat.getDrawable(this, backgroundImageId)!!
-//        bgImage.setImageResource(backgroundImageId)
+        gridView = binding.gridView
+        bgImage = binding.map
 
+        bgImage.setImageResource(backgroundImageId)
 
-        message = intent.getStringExtra(MESSAGE_KEY)
-        cellSize = intent.getIntExtra(CELL_SIZE, 100)
-        onBack()
-        createGameFragment(cellSize, backgroundImageId)
-//        createGrid()
+        createGrid()
 
     }
-    //EXTERNALITZAR TOT
-    //Implementar un timeout de x minuts, si s arriba al timeout game over , i es guarda la partida com a perduda, podem mostrar pop up ...
 
 
-    private fun createGameFragment(cellSize: Int, backgroundImageId: Int) {
-        val fragment = GameFragment.newInstance(cellSize, backgroundImageId)
+    companion object {
+        //TODO set to strings.xml
+        private const val ARG_CELL_SIZE = "arg_cell_size"
+        private const val ARG_MAP = "arg_map"
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-            .commit()
+        fun newInstance(cellSize: Int, backgroundImageId: Int): GameFragment {
+            val fragment = GameFragment()
+            val args = Bundle()
+            args.putInt(ARG_CELL_SIZE, cellSize)
+            args.putInt(ARG_MAP, backgroundImageId)
+            fragment.arguments = args
+            return fragment
+        }
     }
+
 
     private fun createGrid() {
         //Listener to wait for the image to be drawn and calculate the cells
@@ -111,9 +104,6 @@ class GameActivity : AppCompatActivity() {
 
                 gridView.columnWidth = cellSize
 
-                // Display the input values in the UI
-                textInput1.text =
-                    getString(R.string.game_title, message, clicks)
 
                 // Create a list of cell values
                 if (imageIndex == -1) {
@@ -134,31 +124,30 @@ class GameActivity : AppCompatActivity() {
                 gridView.onItemClickListener =
                     AdapterView.OnItemClickListener { _, _, position, _ ->
                         clicks++
-                        textInput1.text =
-                            getString(R.string.game_title, message, clicks)
+
                         // If the user clicks on the image, display a message and finish the activity
                         if (position == imageIndex) {
-                            chronometer.stop()
+//                            chronometer.stop()
 
                             toast?.cancel()
                             toast =
                                 Toast.makeText(
-                                    this@GameActivity,
+                                    requireContext(),
                                     getString(R.string.win_text),
                                     Toast.LENGTH_SHORT
                                 )
                             toast?.show()
 
-                            val intent = Intent(this@GameActivity, FinalActivity::class.java)
+                            val intent = Intent(requireContext(), FinalActivity::class.java)
                             setLogs(intent)//set logs creara bundle con objeto tipo game que es parcelable
-                            startActivity(intent)//pass the game object to the next activity
-                            finish()
+                            requireActivity().startActivity(intent)//pass the game object to the next activity
+                            requireActivity().finish()
                         } else {
                             // Show toast
                             toast?.cancel()
                             toast =
                                 Toast.makeText(
-                                    this@GameActivity,
+                                    requireContext(),
                                     getString(R.string.try_again),
                                     Toast.LENGTH_SHORT
                                 )
@@ -167,7 +156,7 @@ class GameActivity : AppCompatActivity() {
                     }
 
                 // It doesn't matter if it has already been started
-                chronometer.start()
+//                chronometer.start()
 
                 return true
             }
@@ -199,7 +188,7 @@ class GameActivity : AppCompatActivity() {
             ): View {
                 val imageView: ImageView
                 if (convertView == null) {
-                    imageView = ImageView(applicationContext)
+                    imageView = ImageView(requireContext())
                     imageView.layoutParams = ViewGroup.LayoutParams(cellSize, cellSize)
                     imageView.scaleType = ImageView.ScaleType.CENTER_CROP
                     imageView.setPadding(8, 8, 8, 8)
@@ -213,45 +202,12 @@ class GameActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putLong("chrono_time", chronometer.base)
-        outState.putInt("wally_pos", imageIndex)
-        outState.putInt("attempts", clicks)
-        outState.putInt("cols", numCols)
-        outState.putInt("rows", numRows)
-    }
-
-    override fun onDestroy() {
-        chronometer.stop()
-        super.onDestroy()
-    }
-
-    private fun onBack() {
-        onBackPressedDispatcher.addCallback(
-            this,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    // If back is pressed finish the activity
-                    finish()
-                }
-            })
-    }
-
-
     private fun setLogs(intent: Intent): Intent {
-        val game = Game(null, message, clicks.toString(), chronometer.text.toString())
-        GameViewModel.insert(game)
+        val game = Game(null, message, clicks.toString(), "chronometer.text.toString()")
         //save game in database here
         val bundle = Bundle()
         bundle.putParcelable("game", game)
         intent.putExtras(bundle)
         return intent
-    }
-
-    companion object {
-        const val MESSAGE_KEY = "message"
-        const val SELECTED_LEVEL_IMAGE_KEY = "selectedLevelImage"
-        const val CELL_SIZE = "cellsize"
     }
 }

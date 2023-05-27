@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.example.findhim.databinding.StartLayoutBinding
-import com.example.findhim.fragments.StartActivity.DifficultySelector
+import com.example.findhim.fragments.start.DifficultySelector
 import com.example.findhim.utils.MusicPlayer
 import java.lang.NumberFormatException
 

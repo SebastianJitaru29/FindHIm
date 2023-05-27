@@ -1,4 +1,4 @@
-package com.example.findhim.fragments.StartActivity
+package com.example.findhim.fragments.start
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import androidx.fragment.app.FragmentManager
 import com.example.findhim.R
 import com.example.findhim.StartActivity
 
