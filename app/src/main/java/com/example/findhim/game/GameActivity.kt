@@ -46,7 +46,8 @@ class GameActivity : AppCompatActivity() {
         binding = GameLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        gridView = findViewById(R.id.gridView)
+
+        gridView = binding.gridView
         textInput1 = findViewById(R.id.text_input1)
         gridContainer = findViewById(R.id.grid_container)
         chronometer = findViewById(R.id.chronometer)
