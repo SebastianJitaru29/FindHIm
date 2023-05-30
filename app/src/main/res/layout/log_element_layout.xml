@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,53 +9,50 @@
         android:id="@+id/logElement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="10dp"
-        android:background="@color/purple_200">
+        android:background="@color/purple_200"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/gameIdLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/game_id"
-            android:textColor="@color/black"
-            />
+            android:textColor="@color/black" />
+
         <TextView
             android:id="@+id/gameId"
-            tools:text="x"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:layout_toEndOf="@id/gameIdLabel"
-            />
+            android:textColor="@color/black"
+            tools:text="x" />
+
         <TextView
             android:id="@+id/playerNameLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/gameIdLabel"
             android:text="@string/nickname"
-            android:textColor="@color/black"
-            />
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/playerName"
-            tools:text="player1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/gameIdLabel"
-            android:textColor="@color/black"
             android:layout_toEndOf="@id/playerNameLabel"
-            />
+            android:textColor="@color/black"
+            tools:text="player1" />
 
         <TextView
             android:id="@+id/gameTimeLabel"
-            android:layout_below="@id/playerNameLabel"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/playerNameLabel"
             android:text="@string/timespent"
-            android:textColor="@color/black"
-            />
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/gameTime"
@@ -78,15 +74,16 @@
 
         <TextView
             android:id="@+id/clicks"
-            android:layout_below="@id/gameTimeLabel"
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:textColor="@color/black"
-            tools:text="0"
-
+            android:layout_height="wrap_content"
+            android:layout_below="@id/gameTimeLabel"
             android:layout_toEndOf="@id/clicksLabel"
-            />
+            android:textColor="@color/black"
+
+            tools:text="0" />
+
 
     </RelativeLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
