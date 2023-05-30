@@ -185,6 +185,7 @@ class GameFragment : Fragment() {
             message,
             mListener?.getAttempts().toString(),
             mListener?.onGetTime()?.text.toString()
+//            null
         )
         gameViewModel.insert(game)
         //save game in database here

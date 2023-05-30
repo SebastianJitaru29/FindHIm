@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.findhim.R
@@ -18,43 +19,31 @@ class GameViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.gameTime.text = game.gameTime
         binding.clicks.text = game.clicks
         binding.gameId.text = game.id.toString()
-//        binding.logElement.setOnClickListener { launchGetMoreInfo(game) }
         binding.logElement.setOnClickListener {
-            val activity = it.context as AppCompatActivity
-            val gameDetailsFragment = GameDetailsFragment()
-            val bundle = Bundle()
-            bundle.putParcelable("game", game)
-            gameDetailsFragment.arguments = bundle
-
-            val fragmentManager = activity.supportFragmentManager
-            fragmentManager.beginTransaction()
-                .replace(
-                    R.id.detailsContainer,
-                    gameDetailsFragment
-                )
-                .addToBackStack(null)
-                .commit()
+            launchGetMoreInfo(
+                game,
+                it.context as AppCompatActivity
+            )
         }
-
     }
 
-    private fun launchGetMoreInfo(game: Game) {
-//        val intent = Intent(itemView.context, GameDetailsActivity::class.java)
-//        intent.putExtra("game", game)
-//        itemView.context.startActivity(intent)
-//    val gameDetailsFragment = GameDetailsFragment()
-//    val bundle = Bundle()
-//    bundle.putParcelable("game", game)
-//    gameDetailsFragment.arguments = bundle
-//
-//    val fragmentManager = itemView.context.supportFragmentManager
-//    fragmentManager.beginTransaction()
-//        .replace(
-//            R.id.detailsContainer,
-//            gameDetailsFragment
-//        ) // Replace "R.id.container" with the ID of your container layout
-//        .addToBackStack(null)
-//        .commit()
+    private fun launchGetMoreInfo(game: Game, activity: AppCompatActivity) {
+        val gameDetailsFragment = GameDetailsFragment()
+        val bundle = Bundle()
+        bundle.putParcelable("game", game)
+        gameDetailsFragment.arguments = bundle
+
+        // Hide delete all button
+        activity.findViewById<Button>(R.id.deleteBtn).visibility = View.GONE
+
+        val fragmentManager = activity.supportFragmentManager
+        fragmentManager.beginTransaction()
+            .replace(
+                R.id.detailsContainer,
+                gameDetailsFragment
+            )
+            .addToBackStack(null)
+            .commit()
 
     }
 
