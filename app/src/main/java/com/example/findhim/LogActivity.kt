@@ -25,9 +25,6 @@ class LogActivity : AppCompatActivity(){
         binding.rv?.layoutManager = LinearLayoutManager(this)
         binding.deleteBtn!!.setOnClickListener { gameViewModel.delete()}
 
-        // Add an observer on the LiveData returned by getAlphabetizedWords.
-        // The onChanged() method fires when the observed data changes and the activity is
-        // in the foreground.
         gameViewModel.allGames.observe(this) { games ->
             // Update the cached copy of the words in the adapter.
             games.let { adapter.submitList(it) }

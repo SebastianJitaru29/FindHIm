@@ -11,11 +11,13 @@ data class Game(
     @PrimaryKey(autoGenerate = true) val id: Int?,
     @ColumnInfo(name = "nickname") val nickname: String?,
     @ColumnInfo(name = "clicks") val clicks: String?,
-    @ColumnInfo(name = "game_time") val gameTime: String?
+    @ColumnInfo(name = "game_time") val gameTime: String?,
+    @ColumnInfo(name = "game_date") val date: String?
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readValue(Int::class.java.classLoader) as? Int,
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readString()
@@ -26,6 +28,7 @@ data class Game(
         parcel.writeString(nickname)
         parcel.writeString(clicks)
         parcel.writeString(gameTime)
+        parcel.writeString(date)
     }
 
     override fun describeContents(): Int {
