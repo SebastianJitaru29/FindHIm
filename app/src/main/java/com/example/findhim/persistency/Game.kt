@@ -12,7 +12,7 @@ data class Game(
     @ColumnInfo(name = "nickname") val nickname: String?,
     @ColumnInfo(name = "clicks") val clicks: String?,
     @ColumnInfo(name = "game_time") val gameTime: String?,
-    @ColumnInfo(name = "game_date") val date: String?
+//    @ColumnInfo(name = "game_date") val date: String?
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
@@ -20,7 +20,7 @@ data class Game(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readString()
+//        parcel.readString()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -28,7 +28,7 @@ data class Game(
         parcel.writeString(nickname)
         parcel.writeString(clicks)
         parcel.writeString(gameTime)
-        parcel.writeString(date)
+//        parcel.writeString(date)
     }
 
     override fun describeContents(): Int {
