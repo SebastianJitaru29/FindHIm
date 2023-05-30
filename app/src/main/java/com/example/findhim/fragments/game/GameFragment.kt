@@ -20,6 +20,7 @@ import com.example.findhim.FinalActivity
 import com.example.findhim.R
 import com.example.findhim.databinding.FragmentGameBinding
 import com.example.findhim.game.GameActivity
+import com.example.findhim.game.GameGridAdapter
 import com.example.findhim.persistency.Game
 import com.example.findhim.persistency.GameApplication
 import com.example.findhim.persistency.GameViewModel
@@ -116,10 +117,6 @@ class GameFragment : Fragment() {
                     numRows = finalHeight / cellSize
                 }
                 val numCells = numRows * numCols
-                Log.e(
-                    "GameFragment",
-                    "$numCells $numCols $numRows $cellSize $backgroundImageId"
-                )
 
                 gridView.columnWidth = cellSize
 
@@ -128,11 +125,10 @@ class GameFragment : Fragment() {
                 if (imageIndex == -1) {
                     val random = Random()
                     imageIndex = random.nextInt(numCells)
-//                    imageIndex = random.nextInt(10)
                 }
 
                 val cellValues = createCells(numCells)
-                val adapter = createAdapter(cellValues)
+                val adapter = GameGridAdapter(requireContext(), cellValues, cellSize)
 
                 // Set the number of rows and columns of the grid based on the calculated values
                 gridView.numColumns = numCols
@@ -147,7 +143,6 @@ class GameFragment : Fragment() {
 
                         // If the user clicks on the image, display a message and finish the activity
                         if (position == imageIndex) {
-//                            chronometer.stop()
                             mListener?.onStopTime()
 
                             toast?.cancel()
@@ -177,7 +172,6 @@ class GameFragment : Fragment() {
                     }
 
                 // It doesn't matter if it has already been started
-//                gameActivity.chronometer.start()
                 mListener?.onStartTime()
 
                 return true
@@ -189,40 +183,6 @@ class GameFragment : Fragment() {
         return Array(numCells) { if (it == imageIndex) R.drawable.wally else R.drawable.transparent_square }
     }
 
-    private fun createAdapter(cellValues: Array<Int>): BaseAdapter {
-        return object : BaseAdapter() {
-            override fun getCount(): Int {
-                return cellValues.size
-            }
-
-            override fun getItem(position: Int): Any? {
-                return null
-            }
-
-            override fun getItemId(position: Int): Long {
-                return 0
-            }
-
-            override fun getView(
-                position: Int,
-                convertView: View?,
-                parent: ViewGroup?
-            ): View {
-                val imageView: ImageView
-                if (convertView == null) {
-                    imageView = ImageView(requireContext())
-                    imageView.layoutParams = ViewGroup.LayoutParams(cellSize, cellSize)
-                    imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-                    imageView.setPadding(8, 8, 8, 8)
-                } else {
-                    imageView = convertView as ImageView
-                }
-
-                imageView.setImageResource(cellValues[position])
-                return imageView
-            }
-        }
-    }
 
     private fun setLogs(intent: Intent): Intent {
         val game = Game(
@@ -247,7 +207,6 @@ class GameFragment : Fragment() {
 
 
     companion object {
-        //TODO set to strings.xml
         private const val ARG_CELL_SIZE = "arg_cell_size"
         private const val ARG_MAP = "arg_map"
         private const val ARG_NICKNAME = "arg_name"
