@@ -1,8 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/sand">
+    android:background="@color/sand"
+    tools:context=".fragments.log.GameDetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/audioLayout"
@@ -34,7 +36,7 @@
     <RelativeLayout
         android:id="@+id/messageFrameLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_above="@+id/backButton"
         android:layout_below="@+id/helpTextView"
         android:layout_centerHorizontal="true"
