@@ -1,5 +1,5 @@
-package com.example.findhim.game
 
+package com.example.findhim.game
 import android.os.Bundle
 
 import android.widget.*
