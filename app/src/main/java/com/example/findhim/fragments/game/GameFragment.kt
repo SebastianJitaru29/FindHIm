@@ -3,6 +3,8 @@ package com.example.findhim.fragments.game
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,13 +24,11 @@ import com.example.findhim.persistency.Game
 import com.example.findhim.persistency.GameApplication
 import com.example.findhim.persistency.GameViewModel
 import com.example.findhim.persistency.GameViewModelFactory
-import java.util.Random
 import java.util.Calendar
-import android.os.CountDownTimer
-import android.util.Log
+import java.util.Random
 
 class GameFragment : Fragment() {
-    private val totalTime =  60000
+    private val totalTime = 60000
     private lateinit var binding: FragmentGameBinding
     private lateinit var gameActivity: GameActivity
     private val gameViewModel: GameViewModel by viewModels {
@@ -38,7 +38,7 @@ class GameFragment : Fragment() {
 
     private lateinit var gridView: GridView
     private lateinit var bgImage: ImageView
-    lateinit var countDownTimer: CountDownTimer
+    private lateinit var countDownTimer: CountDownTimer
 
     private var backgroundImageId: Int = 0
     private var cellSize: Int = 100
@@ -51,20 +51,15 @@ class GameFragment : Fragment() {
     private var message: String? = ""
 
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         mListener = try {
             context as GameFragmentListener
         } catch (e: ClassCastException) {
             throw ClassCastException("$context must implement GameFragmentListener")
         }
-    }
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
         binding = FragmentGameBinding.inflate(inflater, container, false)
 
         countDownTimer = object : CountDownTimer(totalTime.toLong(), 1000) {
@@ -80,7 +75,7 @@ class GameFragment : Fragment() {
                     getString(R.string.lost),
                     Toast.LENGTH_SHORT
                 ).show()
-                 Log.e("countdowns", "NO TIME")
+                Log.e("countdowns", "NO TIME")
                 val intent = Intent(requireContext(), FinalActivity::class.java)
                 setLogs(intent) //set logs creara bundle con objeto tipo game que es parcelable
                 requireActivity().startActivity(intent) //pass the game object to the next activity
@@ -233,6 +228,7 @@ class GameFragment : Fragment() {
         this.backgroundImageId = backgroundImageId
         this.message = nickname
     }
+
     fun getCurrentTime(): String {
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)

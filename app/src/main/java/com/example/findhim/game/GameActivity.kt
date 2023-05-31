@@ -45,8 +45,6 @@ class GameActivity : AppCompatActivity(), GameFragmentListener {
 
         createStatsFragment()
         createGameFragment(cellSize, backgroundImageId, message)
-
-
     }
     //EXTERNALITZAR TOT
     //Implementar un timeout de x minuts, si s arriba al timeout game over , i es guarda la partida com a perduda, podem mostrar pop up ...
