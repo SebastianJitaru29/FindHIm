@@ -29,6 +29,7 @@
     <string name="game_title">Welcome to the Game! %s, Attempts: %d</string>
     <string name="win_text">You win!</string>
     <string name="try_again">Try again!</string>
+    <string name="lost">Time is over , you lost</string>
 
     <!--    Final Layout-->
     <string name="tittle_final">Congratulations! You found Wally</string>
@@ -58,6 +59,7 @@
     <string name="clicks">Clicks:</string>
     <string name="game_details">Game Details</string>
     <string name="delete_all">Delete All</string>
+    <string name="date">Date:</string>
 
 
 </resources>

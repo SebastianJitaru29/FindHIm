@@ -8,4 +8,5 @@ interface GameFragmentListener {
     fun onGetTime(): Chronometer?
     fun onUserClick()
     fun getAttempts(): Int?
+    fun getDownTime(time:Long)
 }

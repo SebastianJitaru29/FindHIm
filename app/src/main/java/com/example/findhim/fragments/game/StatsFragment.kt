@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Chronometer
 import android.widget.TextView
+import android.widget.Toast
 import com.example.findhim.databinding.FragmentStatsBinding
 
 
@@ -16,7 +17,7 @@ class StatsFragment : Fragment() {
     private var attempts: Int = 0
     private lateinit var chronometer: Chronometer
     private lateinit var attemptsTextView: TextView
-
+    private lateinit var downTimer: TextView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,6 +31,7 @@ class StatsFragment : Fragment() {
 
         chronometer = binding.chronometerr
         attemptsTextView = binding.attempts
+        downTimer = binding.downTimer
 
 
         if (savedInstanceState != null) {
@@ -69,6 +71,8 @@ class StatsFragment : Fragment() {
         attemptsTextView.text = attempts.toString()
     }
 
-
+    fun getDownTimer(time:Long){
+        downTimer.text = String.format("Time left: %d seconds", time)
+    }
 
 }
