@@ -19,6 +19,7 @@ class GameViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         binding.gameTime.text = game.gameTime
         binding.clicks.text = game.clicks
         binding.gameId.text = game.id.toString()
+        binding.currenTime.text = game.date
         binding.logElement.setOnClickListener {
             launchGetMoreInfo(
                 game,

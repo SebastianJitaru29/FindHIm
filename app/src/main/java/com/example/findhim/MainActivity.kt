@@ -3,19 +3,21 @@ package com.example.findhim
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import com.example.findhim.databinding.ActivityMainBinding
 import com.example.findhim.utils.StartMusicActivity
 import com.example.findhim.utils.MusicPlayer
 
 class MainActivity : StartMusicActivity() {
+    private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val startBtn = findViewById<Button>(R.id.startButton)
-        val helpBtn = findViewById<Button>(R.id.helpButton)
-        val exitBtn = findViewById<Button>(R.id.exitButton)
-        val historyBtn = findViewById<Button>(R.id.LogButton)
-
+        val startBtn = binding.startButton
+        val helpBtn = binding.helpButton
+        val exitBtn = binding.exitButton
+        val historyBtn = binding.LogButton
         MusicPlayer.setupMusicButton(this)
 
         startBtn.setOnClickListener { launchActivity(StartActivity::class.java) }
