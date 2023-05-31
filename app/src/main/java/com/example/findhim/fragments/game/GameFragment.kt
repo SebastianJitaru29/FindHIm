@@ -25,6 +25,8 @@ import com.example.findhim.persistency.GameViewModelFactory
 import java.util.Random
 import java.util.Calendar
 import android.os.CountDownTimer
+import android.util.Log
+
 class GameFragment : Fragment() {
     private val totalTime =  60000
     private lateinit var binding: FragmentGameBinding
@@ -36,6 +38,7 @@ class GameFragment : Fragment() {
 
     private lateinit var gridView: GridView
     private lateinit var bgImage: ImageView
+    lateinit var countDownTimer: CountDownTimer
 
     private var backgroundImageId: Int = 0
     private var cellSize: Int = 100
@@ -64,7 +67,7 @@ class GameFragment : Fragment() {
     ): View {
         binding = FragmentGameBinding.inflate(inflater, container, false)
 
-        val countDownTimer = object : CountDownTimer(totalTime.toLong(), 1000) {
+        countDownTimer = object : CountDownTimer(totalTime.toLong(), 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val secondsRemaining = millisUntilFinished / 1000
                 //invocar funcio de stats frgament
@@ -77,9 +80,10 @@ class GameFragment : Fragment() {
                     getString(R.string.lost),
                     Toast.LENGTH_SHORT
                 ).show()
+                 Log.e("countdowns", "NO TIME")
                 val intent = Intent(requireContext(), FinalActivity::class.java)
-                setLogs(intent)//set logs creara bundle con objeto tipo game que es parcelable
-                requireActivity().startActivity(intent)//pass the game object to the next activity
+                setLogs(intent) //set logs creara bundle con objeto tipo game que es parcelable
+                requireActivity().startActivity(intent) //pass the game object to the next activity
                 requireActivity().finish()
             }
         }
@@ -115,8 +119,14 @@ class GameFragment : Fragment() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         //waldo pos
+        countDownTimer.cancel()
         outState.putInt("waldoPos", imageIndex)
 
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        countDownTimer.cancel()
     }
 
     private fun createGrid() {
@@ -174,6 +184,7 @@ class GameFragment : Fragment() {
                             val intent = Intent(requireContext(), FinalActivity::class.java)
                             setLogs(intent)//set logs creara bundle con objeto tipo game que es parcelable
                             requireActivity().startActivity(intent)//pass the game object to the next activity
+
                             requireActivity().finish()
                         } else {
                             // Show toast
