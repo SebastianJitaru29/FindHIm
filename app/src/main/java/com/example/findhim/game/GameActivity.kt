@@ -128,4 +128,12 @@ class GameActivity : AppCompatActivity(), GameFragmentListener {
             supportFragmentManager.findFragmentById(R.id.fragment_stats) as? StatsFragment
         return statsFragment?.getAttempts()
     }
+
+    override fun getDownTime(time: Long) {
+        val statsFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_stats) as? StatsFragment
+        return statsFragment?.getDownTimer(time)!!
+    }
+
+
 }

@@ -81,7 +81,23 @@
             android:textColor="@color/black"
 
             tools:text="0" />
+        <TextView
+            android:id="@+id/currentTimeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/clicksLabel"
+            android:text="@string/date"
+            android:textColor="@color/black" />
 
+        <TextView
+            android:id="@+id/currenTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/clicksLabel"
+            android:layout_toEndOf="@id/currentTimeLabel"
+            android:textColor="@color/black"
+
+            tools:text="0" />
 
     </RelativeLayout>
 

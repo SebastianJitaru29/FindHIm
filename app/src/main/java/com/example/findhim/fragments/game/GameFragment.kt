@@ -23,10 +23,10 @@ import com.example.findhim.persistency.GameApplication
 import com.example.findhim.persistency.GameViewModel
 import com.example.findhim.persistency.GameViewModelFactory
 import java.util.Random
-
-
+import java.util.Calendar
+import android.os.CountDownTimer
 class GameFragment : Fragment() {
-
+    private val totalTime =  60000
     private lateinit var binding: FragmentGameBinding
     private lateinit var gameActivity: GameActivity
     private val gameViewModel: GameViewModel by viewModels {
@@ -63,6 +63,28 @@ class GameFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGameBinding.inflate(inflater, container, false)
+
+        val countDownTimer = object : CountDownTimer(totalTime.toLong(), 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val secondsRemaining = millisUntilFinished / 1000
+                //invocar funcio de stats frgament
+                mListener?.getDownTime(secondsRemaining)
+            }
+
+            override fun onFinish() {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.lost),
+                    Toast.LENGTH_SHORT
+                ).show()
+                val intent = Intent(requireContext(), FinalActivity::class.java)
+                setLogs(intent)//set logs creara bundle con objeto tipo game que es parcelable
+                requireActivity().startActivity(intent)//pass the game object to the next activity
+                requireActivity().finish()
+            }
+        }
+
+        countDownTimer.start()
         return binding.root
     }
 
@@ -184,8 +206,8 @@ class GameFragment : Fragment() {
             null,
             message,
             mListener?.getAttempts().toString(),
-            mListener?.onGetTime()?.text.toString()
-//            null
+            mListener?.onGetTime()?.text.toString(),
+            getCurrentTime()
         )
         gameViewModel.insert(game)
         //save game in database here
@@ -200,7 +222,14 @@ class GameFragment : Fragment() {
         this.backgroundImageId = backgroundImageId
         this.message = nickname
     }
+    fun getCurrentTime(): String {
+        val calendar = Calendar.getInstance()
+        val hour = calendar.get(Calendar.HOUR_OF_DAY)
+        val minute = calendar.get(Calendar.MINUTE)
+        val second = calendar.get(Calendar.SECOND)
 
+        return String.format("%02d:%02d:%02d", hour, minute, second)
+    }
 
     companion object {
         private const val ARG_CELL_SIZE = "arg_cell_size"
