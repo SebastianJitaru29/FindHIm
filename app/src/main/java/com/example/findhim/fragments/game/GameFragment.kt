@@ -59,7 +59,7 @@ class GameFragment : Fragment() {
         binding = FragmentGameBinding.inflate(inflater, container, false)
 
         if (savedInstanceState != null) {
-            imageIndex = savedInstanceState.getInt("waldoPos", -1)
+            imageIndex = savedInstanceState.getInt(getString(R.string.waldopos), -1)
         }
 
         return binding.root
@@ -86,7 +86,7 @@ class GameFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt("waldoPos", imageIndex)
+        outState.putInt(getString(R.string.waldopos), imageIndex)
     }
 
 
@@ -176,7 +176,7 @@ class GameFragment : Fragment() {
         )
         gameViewModel.insert(game)
         val bundle = Bundle()
-        bundle.putParcelable("game", game)
+        bundle.putParcelable(getString(R.string.game_key), game)
         intent.putExtras(bundle)
         return intent
     }

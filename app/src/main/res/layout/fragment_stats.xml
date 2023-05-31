@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@id/attempts"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="STATS"
+        android:text="@string/stats"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="24sp"

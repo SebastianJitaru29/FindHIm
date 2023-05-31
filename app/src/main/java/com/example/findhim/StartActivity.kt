@@ -40,8 +40,6 @@ class StartActivity : AppCompatActivity() {
         }
         MusicPlayer.setupMusicButton(this)
 
-        binding.lev?.setOnClickListener { showDifficultySelector() }
-
         //Set gif
         waldoGif = binding.waldoWalking
         Glide.with(this).load(R.drawable.walkingwaldo).into(waldoGif)
@@ -116,20 +114,6 @@ class StartActivity : AppCompatActivity() {
 
         //save
         lastPressedButtonId = button.id
-    }
-
-    private fun showDifficultySelector() {
-        val fragmentManager = supportFragmentManager
-        val sizeFragment = fragmentManager.findFragmentById(R.id.fragment) as? DifficultySelector
-
-        if (sizeFragment == null) {
-            val fragment = DifficultySelector()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragment, fragment)
-                .addToBackStack(null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
-                .commit()
-        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

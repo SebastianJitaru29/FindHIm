@@ -31,7 +31,7 @@ class GameActivity : AppCompatActivity(), GameFragmentListener {
 
 
         if (savedInstanceState != null) {
-            imageIndex = savedInstanceState.getInt("wally_pos")
+            imageIndex = savedInstanceState.getInt(getString(R.string.waldopos))
             numCols = savedInstanceState.getInt("cols")
             numRows = savedInstanceState.getInt("rows")
         }

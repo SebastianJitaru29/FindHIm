@@ -60,6 +60,9 @@
     <string name="game_details">Game Details</string>
     <string name="delete_all">Delete All</string>
     <string name="date">Date:</string>
+    <string name="stats">STATS</string>
+    <string name="game_key">game</string>
+    <string name="waldopos">waldoPos</string>
 
 
 </resources>
