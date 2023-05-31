@@ -1,13 +1,13 @@
 package com.example.findhim.fragments.game
 
 import android.os.Bundle
+import android.os.SystemClock
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Chronometer
 import android.widget.TextView
-import android.widget.Toast
 import com.example.findhim.databinding.FragmentStatsBinding
 
 
@@ -17,11 +17,17 @@ class StatsFragment : Fragment() {
     private var attempts: Int = 0
     private lateinit var chronometer: Chronometer
     private lateinit var attemptsTextView: TextView
-    private lateinit var downTimer: TextView
+    private var maxTime: Long = 60
+    private var mListener: GameFragmentListener? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        mListener = try {
+            context as GameFragmentListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException("$context must implement GameFragmentListener")
+        }
         binding = FragmentStatsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -31,7 +37,6 @@ class StatsFragment : Fragment() {
 
         chronometer = binding.chronometerr
         attemptsTextView = binding.attempts
-        downTimer = binding.downTimer
 
 
         if (savedInstanceState != null) {
@@ -41,6 +46,13 @@ class StatsFragment : Fragment() {
         }
         attemptsTextView.text = attempts.toString()
 
+        chronometer.setOnChronometerTickListener { chronometer ->
+            val elapsedSeconds = (SystemClock.elapsedRealtime() - chronometer.base) / 1000
+            if (elapsedSeconds >= maxTime) {
+                mListener?.maxTimeReached()
+            }
+
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -71,8 +83,5 @@ class StatsFragment : Fragment() {
         attemptsTextView.text = attempts.toString()
     }
 
-    fun getDownTimer(time:Long){
-        downTimer.text = String.format("Time left: %d seconds", time)
-    }
 
 }

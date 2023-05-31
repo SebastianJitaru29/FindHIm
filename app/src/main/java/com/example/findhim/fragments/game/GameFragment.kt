@@ -1,6 +1,5 @@
 package com.example.findhim.fragments.game
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -24,11 +23,10 @@ import com.example.findhim.persistency.GameViewModel
 import com.example.findhim.persistency.GameViewModelFactory
 import java.util.Random
 import java.util.Calendar
-import android.os.CountDownTimer
-import android.util.Log
+
 
 class GameFragment : Fragment() {
-    private val totalTime:Long = 60000
+    private val totalTime: Long = 90000
     private lateinit var binding: FragmentGameBinding
     private lateinit var gameActivity: GameActivity
     private val gameViewModel: GameViewModel by viewModels {
@@ -37,7 +35,6 @@ class GameFragment : Fragment() {
 
     private lateinit var gridView: GridView
     private lateinit var bgImage: ImageView
-    lateinit var countDownTimer: CountDownTimer
 
     private var backgroundImageId: Int = 0
     private var cellSize: Int = 100
@@ -48,9 +45,6 @@ class GameFragment : Fragment() {
     private var mListener: GameFragmentListener? = null
 
     private var message: String? = ""
-
-    // Variable to store the remaining time in milliseconds
-    private var remainingTime: Long = totalTime
 
 
     override fun onCreateView(
@@ -64,28 +58,10 @@ class GameFragment : Fragment() {
         }
         binding = FragmentGameBinding.inflate(inflater, container, false)
 
-        countDownTimer = object : CountDownTimer(remainingTime, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                val secondsRemaining = millisUntilFinished / 1000
-                // Invoke function in stats fragment
-                 mListener?.getDownTime(secondsRemaining)
-            }
-
-            override fun onFinish() {
-                Toast.makeText(
-                    requireContext(),
-                    getString(R.string.lost),
-                    Toast.LENGTH_SHORT
-                ).show()
-                Log.e("countdowns", "NO TIME")
-                val intent = Intent(requireContext(), FinalActivity::class.java)
-                setLogs(intent) // Set logs will create a bundle with a game object that is parcelable
-                requireActivity().startActivity(intent) // Pass the game object to the next activity
-                requireActivity().finish()
-            }
+        if (savedInstanceState != null) {
+            imageIndex = savedInstanceState.getInt("waldoPos", -1)
         }
 
-        countDownTimer.start()
         return binding.root
     }
 
@@ -105,24 +81,17 @@ class GameFragment : Fragment() {
 
         bgImage.setImageResource(backgroundImageId)
 
-        if (savedInstanceState != null) {
-            imageIndex = savedInstanceState.getInt("waldoPos", -1)
-            remainingTime = savedInstanceState.getLong("remainingTime", totalTime.toLong())
-        }
-
         createGrid()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        countDownTimer.cancel()
         outState.putInt("waldoPos", imageIndex)
-        outState.putLong("remainingTime", remainingTime)
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
-        countDownTimer.cancel()
     }
 
     private fun createGrid() {
@@ -218,13 +187,26 @@ class GameFragment : Fragment() {
         this.message = nickname
     }
 
-    fun getCurrentTime(): String {
+    private fun getCurrentTime(): String {
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
         val second = calendar.get(Calendar.SECOND)
 
         return String.format("%02d:%02d:%02d", hour, minute, second)
+    }
+
+    fun maxTime() {
+        //Ends game
+        Toast.makeText(
+            requireContext(),
+            getString(R.string.lost),
+            Toast.LENGTH_SHORT
+        ).show()
+        val intent = Intent(requireContext(), FinalActivity::class.java)
+        setLogs(intent) // Set logs will create a bundle with a game object that is parcelable
+        requireActivity().startActivity(intent) // Pass the game object to the next activity
+        requireActivity().finish()
     }
 
     companion object {

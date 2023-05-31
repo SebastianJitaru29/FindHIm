@@ -127,10 +127,11 @@ class GameActivity : AppCompatActivity(), GameFragmentListener {
         return statsFragment?.getAttempts()
     }
 
-    override fun getDownTime(time: Long) {
-        val statsFragment =
-            supportFragmentManager.findFragmentById(R.id.fragment_stats) as? StatsFragment
-        return statsFragment?.getDownTimer(time)!!
+
+    override fun maxTimeReached() {
+        val gameFragment =
+            supportFragmentManager.findFragmentById(R.id.fragment_game) as? GameFragment
+        gameFragment?.maxTime()
     }
 
 
