@@ -52,19 +52,16 @@ class GameFragment : Fragment() {
     // Variable to store the remaining time in milliseconds
     private var remainingTime: Long = totalTime
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mListener = try {
-            context as GameFragmentListener
-        } catch (e: ClassCastException) {
-            throw ClassCastException("$context must implement GameFragmentListener")
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        mListener = try {
+            context as GameFragmentListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException("$context must implement GameFragmentListener")
+        }
         binding = FragmentGameBinding.inflate(inflater, container, false)
 
         countDownTimer = object : CountDownTimer(remainingTime, 1000) {
